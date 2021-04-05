@@ -1,1 +1,1 @@
-web: gunicorn flask-twilio-video:app
+web: gunicorn sapp
