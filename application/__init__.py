@@ -15,6 +15,9 @@ twilio_client = Client(twilio_api_key_sid, twilio_api_key_secret,
 
 app = Flask(__name__)
 
+app.config['DEBUG'] = False
+app.config['SECRET_KEY'] = os.environ.get('SECRET')
+# app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
 
 def get_chatroom(name):
     for conversation in twilio_client.conversations.conversations.list():
@@ -52,7 +55,3 @@ def login():
 
     return {'token': token.to_jwt().decode(),
             'conversation_sid': conversation.sid}
-
-
-if __name__ == '__main__':
-    app.run()
