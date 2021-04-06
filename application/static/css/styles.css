@@ -93,3 +93,8 @@ html, body {
     line-height: 1em;
     max-height: 1px;
 }
+
+.mdc-card__media {
+    background-image: url("imgs/inkwobi.jpeg");
+    height: auto;
+  }
