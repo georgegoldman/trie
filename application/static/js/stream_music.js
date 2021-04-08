@@ -1,9 +1,10 @@
 //import axios from "axios";
 
+
 const options = {
   method: 'GET',
   url: 'https://deezerdevs-deezer.p.rapidapi.com/search',
-  params: {q: 'eminem'},
+  params: {q: 'funbi'},
   headers: {
     'x-rapidapi-key': 'd765230cffmshfbcb0be68220569p1887a6jsn21942133f34b',
     'x-rapidapi-host': 'deezerdevs-deezer.p.rapidapi.com'
@@ -18,13 +19,13 @@ axios.request(options).then(function (response) {
 	response.data.data.forEach(function(item) {
 	    console.log(item.title)
         const music_list = document.getElementById('music_list')
-        music_list.innerHTML += `     <li class='mdc-list-item' tabindex="0">
+        music_list.innerHTML += `<li class='mdc-list-item' tabindex="0">
                                        <span class=mdc-list-item__ripple></span>
                                        <span class='mdc-list-item__text' >
                                          <span class='mdc-list-item__primary-text'>${item.title}</span>
-                                         <span class='mdc-list-item__secondary-text'>Mali music</span>
+                                         <span class='mdc-list-item__secondary-text'>${item.artist.name}</span>
                                        </span>
-                                     </li> `
+                                </li> `
 
 	})
 
