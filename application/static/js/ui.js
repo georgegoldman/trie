@@ -1,1 +1,0 @@
-const textField = new mdc.textField.MDCTextField(document.querySelector('.mdc-text-field'));

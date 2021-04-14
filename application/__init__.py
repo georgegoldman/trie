@@ -30,9 +30,6 @@ def get_chatroom(name):
         friendly_name=name)
 
 
-from.stream_music import music_stream
-app.register_blueprint(music_stream)
-
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -60,3 +57,5 @@ def login():
     return {'token': token.to_jwt().decode(),
             'conversation_sid': conversation.sid}
 
+from .route import eatery
+app.register_blueprint(eatery.eat)
