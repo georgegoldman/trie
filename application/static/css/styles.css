@@ -6,13 +6,13 @@ html, body {
 #root:not(.withChat) {
     display: block;
     width: 100%;
-    height: 100%;
+    height: auto;
     margin-top: 20px;
 }
 #root.withChat {
     display: grid;
     grid-template-columns: 75% 25%;
-    height: 100%;
+    height: auto;
     margin-top: 20px;
 }
 
@@ -31,24 +31,23 @@ html, body {
     margin-right: 5px;
     display: grid;
     grid-template-rows: auto 20px;
-    background-color: red;
+    /* background-color: whitesmoke; */
 }
 .participant div {
     /* text-align: center; */
 }
 .participant div video {
     /* background-color: #eee; */
-    border: 1px solid black;
+    border: 1px solid white;
 }
 .participant div video:not(.trackZoomed) {
     width: 100%;
     height: 180px;
-    display: inline-block;
 }
-.participant .label {
-    /* background-color: #ddd; */
+/* .participant .label {
+    background-color: #ddd;
     padding: 2px;
-}
+} */
 .participantZoomed {
     width: 100%;
     height: calc(100% - 5px);
@@ -99,4 +98,8 @@ html, body {
 .mdc-card__media {
     background-image: url("imgs/inkwobi.jpeg");
     height: auto;
+  }
+
+  .video-call__btn{
+      font-size: 50px;
   }

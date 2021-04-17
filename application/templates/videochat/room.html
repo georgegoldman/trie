@@ -17,31 +17,31 @@
     <!-- <button id="join_leave">Join call</button> -->
     <button class="mdc-button" id="join_leave">
         <span class="mdc-button__ripple"></span>
-        <i class="material-icons mdc-button__icon" aria-hidden="true"
-          >video_call</i
-        >
-        <span class="mdc-button__label">Join call</span>
+        <span class="material-icons-round video-call__btn">
+          video_call
+          </span>
+        <!-- <span class="mdc-button__label">Join call</span> -->
       </button>
     <!-- <button id="share_screen" disabled>Share screen</button> -->
     <button class="mdc-button" id="share_screen" disabled>
         <span class="mdc-button__ripple"></span>
-        <i class="material-icons mdc-button__icon" aria-hidden="true"
-          >screen_share</i
-        >
-        <span class="mdc-button__label">Share screen</span>
+        <span class="material-icons-outlined video-call__btn">
+          screen_share
+          </span>
+        <!-- <span class="mdc-button__label">Share screen</span> -->
       </button>
     <!-- <button id="toggle_chat" disabled>Toggle chat</button> -->
     <button class="mdc-button" id="toggle_chat" disabled>
         <span class="mdc-button__ripple"></span>
-        <i class="material-icons mdc-button__icon" aria-hidden="true"
-          >swap_calls</i
-        >
-        <span class="mdc-button__label">Toggle chat</span>
+        <span class="material-icons-round video-call__btn">
+          question_answer
+          </span>
+        <!-- <span class="mdc-button__label">Toggle chat</span> -->
       </button>
 
 <div id="root">
     <div id="container" >
-        <div id="local" class="participant col-xl-6"><div></div><div class="label">Me</div></div>
+        <div id="local" class="participant col-xl-4 col-12 bg-light "><div></div><div class="label text-center text-secondary "><p class="" >me</p></div></div>
         <!-- more participants will be added dynamically here -->
     </div>
     <div id="chat">
