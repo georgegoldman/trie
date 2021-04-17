@@ -1,0 +1,55 @@
+<p id="count">Disconnected.</p>
+
+    <div class="mb-3">
+        <label for="username" class="form-label" >Name: </label>
+        <!-- <input type="text" name=”username” class="form-control" id="username"> -->
+        <label class="mdc-text-field mdc-text-field--outlined">
+            <span class="mdc-notched-outline">
+              <span class="mdc-notched-outline__leading"></span>
+              <span class="mdc-notched-outline__notch">
+                <!-- <span class="mdc-floating-label" id="my-label-id">Your Name</span> -->
+              </span>
+              <span class="mdc-notched-outline__trailing"></span>
+            </span>
+            <input type="text" class="mdc-text-field__input" id="username" aria-labelledby="my-label-id">
+          </label>
+    </div>
+    <!-- <button id="join_leave">Join call</button> -->
+    <button class="mdc-button" id="join_leave">
+        <span class="mdc-button__ripple"></span>
+        <i class="material-icons mdc-button__icon" aria-hidden="true"
+          >video_call</i
+        >
+        <span class="mdc-button__label">Join call</span>
+      </button>
+    <!-- <button id="share_screen" disabled>Share screen</button> -->
+    <button class="mdc-button" id="share_screen" disabled>
+        <span class="mdc-button__ripple"></span>
+        <i class="material-icons mdc-button__icon" aria-hidden="true"
+          >screen_share</i
+        >
+        <span class="mdc-button__label">Share screen</span>
+      </button>
+    <!-- <button id="toggle_chat" disabled>Toggle chat</button> -->
+    <button class="mdc-button" id="toggle_chat" disabled>
+        <span class="mdc-button__ripple"></span>
+        <i class="material-icons mdc-button__icon" aria-hidden="true"
+          >swap_calls</i
+        >
+        <span class="mdc-button__label">Toggle chat</span>
+      </button>
+
+<div id="root">
+    <div id="container" >
+        <div id="local" class="participant col-xl-6"><div></div><div class="label">Me</div></div>
+        <!-- more participants will be added dynamically here -->
+    </div>
+    <div id="chat">
+        <div id="chat-scroll">
+            <div id="chat-content">
+                <!-- chat content will be added dynamically here -->
+            </div>
+        </div>
+        <input id="chat-input" type="text">
+    </div>  
+</div>

@@ -31,20 +31,22 @@ html, body {
     margin-right: 5px;
     display: grid;
     grid-template-rows: auto 20px;
+    background-color: red;
 }
 .participant div {
-    text-align: center;
+    /* text-align: center; */
 }
 .participant div video {
     background-color: #eee;
     border: 1px solid black;
 }
 .participant div video:not(.trackZoomed) {
-    width: 240px;
+    width: 100%;
     height: 180px;
+    display: inline-block;
 }
 .participant .label {
-    background-color: #ddd;
+    /* background-color: #ddd; */
     padding: 2px;
 }
 .participantZoomed {
@@ -53,7 +55,7 @@ html, body {
     grid-template-rows: auto 30px;
 }
 .participantHidden {
-    display: none;
+    /* display: none; */
 }
 .trackZoomed {
     width: 100%;
