@@ -1,31 +1,22 @@
-<div class="row h-100">
-    <div class="col-xl-5">
-      <div class="col-xl-12 p-4 mt-5 d-flex justify-content-center">
-        <span class="material-icons">
-          album
-          </span>
-      </div>
-      <div class="col-xl-12 p-4">
-        <label class="mdc-text-field mdc-text-field--filled col-12 ">
-          <span class="mdc-text-field__ripple"></span>
-          <span class="mdc-floating-label" id="my-label-id">Search song by artist name</span>
-          <input class="mdc-text-field__input col-12 " type="text" aria-labelledby="my-label-id">
-          <span class="mdc-line-ripple"></span>
-        </label>
-      </div>
+<div class="col-12">
+  <div class="row">
+    <div class="col-6">
+      <label class="mdc-text-field mdc-text-field--filled" data-mdc-auto-init="MDCTextField">
+        <span class="mdc-text-field__ripple"></span>
+        <input class="mdc-text-field__input" type="text" id="search" aria-labelledby="label">
+        <span id="label" class="mdc-floating-label">Stream song</span>
+        <span class="mdc-line-ripple"></span>
+      </label>
     </div>
-    <div class="col-xl-7 overflow-auto h-100">
-        <ul class="mdc-list mdc-list--two-line" id="music_list">
 
-        </ul>
+    <div class="col-6">
+      <audio controls>
+        <source src="" id="musicTray" type="audio/mpeg" >
+      </audio>
     </div>
+  </div>
 </div>
-<style>
-  .mdc-text-field--filled:not(.mdc-text-field--disabled) {
-    background-color: transparent !important;
-}
-.material-icons{
-  font-size: 7em;
-}
-</style>
 
+<div id="results" class="overflow-auto" style="height: 100%" >
+
+</div>
