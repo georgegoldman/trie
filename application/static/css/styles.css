@@ -37,7 +37,7 @@ html, body {
     /* text-align: center; */
 }
 .participant div video {
-    background-color: #eee;
+    /* background-color: #eee; */
     border: 1px solid black;
 }
 .participant div video:not(.trackZoomed) {
