@@ -1,0 +1,14 @@
+{% extends 'index.html' %}
+{% block content %}
+<div class="col-xl-6 " style="height: 100%; ">
+    <div class="bg-transparent overflow-auto" style="height: 58%; margin-bottom: 2%;">
+        {% include 'foodlist/list.html' %}
+    </div>
+    <div class="bg-transparent " style="height: 40%;">
+        {% include 'musicstream/list.html' %}
+    </div>
+</div>
+<div class="col-xl-6 overflow-auto border-light border border-end-0 border-top-0 border-bottom-0 border-2" style="height: 100%; margin-bottom: 2%;" >
+    {% include 'videochat/room.html' %}
+</div>
+{% endblock %}

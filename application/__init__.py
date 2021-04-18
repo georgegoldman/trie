@@ -2,6 +2,8 @@ import os
 import http.client
 from dotenv import load_dotenv
 from flask import Flask, render_template, request, abort
+from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
 from twilio.jwt.access_token import AccessToken
 from twilio.jwt.access_token.grants import VideoGrant, ChatGrant
 from twilio.rest import Client
@@ -17,7 +19,12 @@ twilio_client = Client(twilio_api_key_sid, twilio_api_key_secret,
 app = Flask(__name__)
 
 app.config['DEBUG'] = False
-app.config['SECRET_KEY'] = os.environ.get('SECRET')
+if app.config["ENV"] == "production":
+    app.config.from_object("config.ProductionConfig")
+else:
+    app.config.from_object("config.DevelopmentConfig")
+
+print(f'ENV is set to: {app.config["ENV"]}')
 # app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
 
 def get_chatroom(name):
@@ -32,7 +39,7 @@ def get_chatroom(name):
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    return render_template('chatting.html')
 
 
 @app.route('/login', methods=['POST'])

@@ -1,0 +1,74 @@
+{% extends 'index.html' %}
+{% block content %}
+
+    <div class="position-relative">
+        <div class="position-absolute top-50 start-50 translate-middle col-12 ">
+            <form action="/register" method="post" enctype="multipart/form-data" class="col-12 p-xl-5">
+                <div class="row">
+                    <legend>
+                        <h3>Register</h3>
+                    </legend>
+                    <div class="col-xl-3 ml-xl-5">
+                        <label class="mdc-text-field mdc-text-field--outlined col-xl-12" data-mdc-auto-init="MDCTextField"  >
+                            <span class="mdc-text-field__ripple"></span>
+                            <span class="mdc-floating-label" id="my-label-id">Username</span>
+                            <input class="mdc-text-field__input" type="text" required
+                                    name="username"
+                                   aria-labelledby="my-label-id"
+                                   aria-controls="my-helper-id"
+                                   aria-describedby="my-helper-id">
+                            <span class="mdc-line-ripple"></span>
+                          </label>
+                          <div class="mdc-text-field-helper-line">
+                            <div class="mdc-text-field-helper-text" id="my-helper-id" aria-hidden="true">eg johndoe.</div>
+                          </div>
+                    </div>
+                    
+                    <div class="col-xl-3">
+                        <label class="mdc-text-field mdc-text-field--outlined col-xl-12" data-mdc-auto-init="MDCTextField"  >
+                            <span class="mdc-text-field__ripple"></span>
+                            <span class="mdc-floating-label" id="my-label-id">Email</span>
+                            <input class="mdc-text-field__input" type="email" required
+                                    name="email"
+                                   aria-labelledby="my-label-id"
+                                   aria-controls="my-helper-id"
+                                   aria-describedby="my-helper-id">
+                            <span class="mdc-line-ripple"></span>
+                          </label>
+                          <div class="mdc-text-field-helper-line">
+                            <div class="mdc-text-field-helper-text" id="my-helper-id" aria-hidden="true">eg Johndoe@email.com.</div>
+                          </div>
+                    </div>
+
+
+
+                    <div class="col-xl-3">
+                        <label class="mdc-text-field mdc-text-field--outlined col-xl-12" data-mdc-auto-init="MDCTextField"  >
+                            <span class="mdc-text-field__ripple"></span>
+                            <span class="mdc-floating-label" id="my-label-id">Password</span>
+                            <input class="mdc-text-field__input" type="password" required
+                                    name="password"
+                                   aria-labelledby="my-label-id"
+                                   aria-controls="my-helper-id"
+                                   aria-describedby="my-helper-id">
+                            <span class="mdc-line-ripple"></span>
+                          </label>
+                          <div class="mdc-text-field-helper-line">
+                            <div class="mdc-text-field-helper-text" id="my-helper-id" aria-hidden="true">eg johndoe@123.</div>
+                          </div>
+                    </div>
+
+                    <div class="col-xl-3 pt-xl-4">
+                        <button class="mdc-button mdc-button--outlined" type="submit">
+                            <span class="mdc-button__ripple"></span>
+                            <i class="material-icons mdc-button__icon" aria-hidden="true">done</i>
+                            <span class="mdc-button__label">Register</span>
+                          </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+{% endblock %}
