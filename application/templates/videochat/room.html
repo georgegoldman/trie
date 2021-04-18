@@ -1,6 +1,7 @@
-<p id="count">Disconnected.</p>
+<div class="d-flex justify-content-center pt-3">
+  <p id="count">Disconnected.</p>
 
-    <div class="mb-3">
+    <div class="mt-5">
         <!-- <input type="text" name=”username” class="form-control" id="username"> -->
         <label class="mdc-text-field mdc-text-field--outlined" data-mdc-auto-init="MDCTextField" >
           <span class="mdc-text-field__ripple"></span>
@@ -8,7 +9,7 @@
           <!-- <span class="mdc-text-field__affix mdc-text-field__affix--prefix"><span class="material-icons-round">
             person
             </span></span> -->
-          <input class="mdc-text-field__input" type="text" aria-labelledby="my-label-id">
+          <input class="mdc-text-field__input" id="username" type="text" aria-labelledby="my-label-id">
           <span class="mdc-text-field__affix mdc-text-field__affix--suffix">
             <span style="font-size: x-large" >🐼</span>
           </span>
@@ -42,10 +43,11 @@
           </span>
         <!-- <span class="mdc-button__label">Toggle chat</span> -->
       </button>
+</div>
 
 <div id="root">
     <div id="container" >
-        <div id="local" class="participant col-xl-4 col-12 bg-light "><div></div><div class="label text-center text-secondary "><p class="" >me</p></div></div>
+        <div id="local" class="participant col-xl-4 col-12 "><div></div><div class="label text-center "><span class="text-white" >me</span></div></div>
         <!-- more participants will be added dynamically here -->
     </div>
     <div id="chat">
