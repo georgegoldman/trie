@@ -1,18 +1,22 @@
 <p id="count">Disconnected.</p>
 
     <div class="mb-3">
-        <label for="username" class="form-label" >Name: </label>
         <!-- <input type="text" name=”username” class="form-control" id="username"> -->
-        <label class="mdc-text-field mdc-text-field--outlined">
-            <span class="mdc-notched-outline">
-              <span class="mdc-notched-outline__leading"></span>
-              <span class="mdc-notched-outline__notch">
-                <!-- <span class="mdc-floating-label" id="my-label-id">Your Name</span> -->
-              </span>
-              <span class="mdc-notched-outline__trailing"></span>
-            </span>
-            <input type="text" class="mdc-text-field__input" id="username" aria-labelledby="my-label-id">
-          </label>
+        <label class="mdc-text-field mdc-text-field--outlined" data-mdc-auto-init="MDCTextField" >
+          <span class="mdc-text-field__ripple"></span>
+          <span class="mdc-floating-label" id="my-label-id">Enter name</span>
+          <!-- <span class="mdc-text-field__affix mdc-text-field__affix--prefix"><span class="material-icons-round">
+            person
+            </span></span> -->
+          <input class="mdc-text-field__input" type="text" aria-labelledby="my-label-id">
+          <span class="mdc-text-field__affix mdc-text-field__affix--suffix">
+            <span style="font-size: x-large" >🐼</span>
+          </span>
+          <span class="mdc-line-ripple"></span>
+        </label>
+        <div class="mdc-text-field-helper-line">
+          <div class="mdc-text-field-helper-text" id="my-helper-id" aria-hidden="true">eg Micheal Jordan.</div>
+        </div>
     </div>
     <!-- <button id="join_leave">Join call</button> -->
     <button class="mdc-button" id="join_leave">
