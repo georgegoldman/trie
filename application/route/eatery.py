@@ -2,7 +2,7 @@ from flask import Blueprint, render_template, request, redirect
 from application import db
 from application.model.eatery import User
 from application.model.menus import Menus
-from flask_login import login_required
+from flask_login import login_required, login_user
 
 eat = Blueprint('eat',__name__)
 
@@ -36,4 +36,7 @@ def login_get():
 
 @eat.route('/login', methods=['POST'])
 def login_post():
-    return render_template('login.html')
+    email = request.form.get('email')
+    password = request.form.get('password')
+    return 'hi'
+    
