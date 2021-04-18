@@ -4,6 +4,8 @@ from dotenv import load_dotenv
 from flask import Flask, render_template, request, abort
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
+from flask_bcrypt import Bcrypt
+from flask_login import LoginManager
 from twilio.jwt.access_token import AccessToken
 from twilio.jwt.access_token.grants import VideoGrant, ChatGrant
 from twilio.rest import Client
@@ -18,6 +20,8 @@ twilio_client = Client(twilio_api_key_sid, twilio_api_key_secret,
 
 app = Flask(__name__)
 
+bcrypt = Bcrypt(app)
+
 app.config['DEBUG'] = False
 if app.config["ENV"] == "production":
     app.config.from_object("config.ProductionConfig")
@@ -26,6 +30,20 @@ else:
 
 print(f'ENV is set to: {app.config["ENV"]}')
 # app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
+
+db = SQLAlchemy(app)
+Migrate = Migrate(app, db)
+login_manager = LoginManager(app)
+
+from .model.eatery import User
+from .model.menus import Menus
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(user_id)
+
+login_manager.login_view = '/login'
+login_manager.login_message = "Please login"
 
 def get_chatroom(name):
     for conversation in twilio_client.conversations.conversations.list():
