@@ -51,9 +51,19 @@ def login_post():
     
     return 'wrong login details'
 
+@eat.route('/makemenu', methods=['GET'])
+@login_required
+def makemenu_get():
+    return render_template('makemenu.html')
+
+@eat.route('/makemenu', methods=['POST'])
+@login_required
+def makemenu_post():
+    return request.form
+
 @eat.route('/logout', methods=['GET'])
 @login_required
 def logout():
     logout_user()
     
-    return 'log out user'
+    return redirect('/')

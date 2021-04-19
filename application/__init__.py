@@ -42,7 +42,7 @@ from .model.menus import Menus
 def load_user(user_id):
     return User.query.get(user_id)
 
-login_manager.login_view = '/login'
+login_manager.login_view = '/'
 login_manager.login_message = "Please login"
 
 def get_chatroom(name):
