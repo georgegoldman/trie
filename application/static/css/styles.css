@@ -33,10 +33,10 @@ html, body {
     grid-template-rows: auto 20px;
     /* background-color: whitesmoke; */
 }
-.participant div {
-    /* text-align: center; */
-    /* height: auto; */
-}
+/* .participant div {
+    text-align: center;
+    height: auto;
+} */
 
 .participant div video {
     /* background-color: #eee; */
@@ -64,9 +64,9 @@ html, body {
     height: calc(100% - 5px);
     grid-template-rows: auto 30px;
 }
-.participantHidden {
-    /* display: none; */
-}
+/* .participantHidden {
+    display: none;
+} */
 .trackZoomed {
     width: 100%;
     height: 100%;
