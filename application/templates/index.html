@@ -10,10 +10,30 @@
     </head>
     <body class="h-100" >
         <div class="container-fluid h-100">
-            <div class="row h-100 ">
-                {% block content %}
-                {% endblock %}
+            <div class="row h-100">
+                {% if current_user.is_authenticated %}
+
+                <header class="mdc-top-app-bar" data-mdc-auto-init="MDCTopAppBar" style="height: 7%;">
+                    <div class="mdc-top-app-bar__row">
+                      <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
+                        <button class="material-icons mdc-top-app-bar__navigation-icon mdc-icon-button" aria-label="Open navigation menu">menu</button>
+                        <span class="mdc-top-app-bar__title">Lifeat</span>
+                      </section>
+                      <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end" role="toolbar">
+                        <button class="material-icons mdc-top-app-bar__action-item mdc-icon-button" aria-label="Favorite">favorite</button>
+                        <button class="material-icons mdc-top-app-bar__action-item mdc-icon-button" aria-label="Options">more_vert</button>
+                      </section>
+                    </div>
+                  </header>
+
+                {% endif %}
+
+                  <main class="mdc-top-app-bar--fixed-adjust row" style="height: 93% !important;">
+                            {% block content %}
+                        {% endblock %}
+                  </main>
             </div>
+
         </div>
         <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
         <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>

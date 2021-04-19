@@ -1,14 +1,19 @@
 from flask import Blueprint, render_template, request, redirect
-from application import db
+from application import db, bcrypt
 from application.model.eatery import User
 from application.model.menus import Menus
-from flask_login import login_required, login_user
+from flask_login import login_required, login_user, logout_user, current_user
 
 eat = Blueprint('eat',__name__)
 
 @eat.route('/eat')
 def eatery():
     return 'hi'
+
+@eat.route('/lifeat')
+@login_required
+def lifeat():
+    return render_template('chatting.html')
 
 @eat.route('/register', methods=['GET'])
 def register_get():
@@ -30,13 +35,25 @@ def register_post():
     
     return 'user created'
 
-@eat.route('/login', methods=['GET'])
+@eat.route('/', methods=['GET'])
 def login_get():
-    return render_template('login.html')
+    return render_template('login.html', current_user=current_user)
 
-@eat.route('/login', methods=['POST'])
+@eat.route('/loginpost', methods=['POST'])
 def login_post():
     email = request.form.get('email')
     password = request.form.get('password')
-    return 'hi'
     
+    search_user = User.query.filter_by(email=email).first()
+    if search_user and bcrypt.check_password_hash(search_user.password, password):
+        login_user(search_user)
+        return redirect('/lifeat')
+    
+    return 'wrong login details'
+
+@eat.route('/logout', methods=['GET'])
+@login_required
+def logout():
+    logout_user()
+    
+    return 'log out user'

@@ -55,11 +55,6 @@ def get_chatroom(name):
         friendly_name=name)
 
 
-@app.route('/')
-def index():
-    return render_template('chatting.html')
-
-
 @app.route('/login', methods=['POST'])
 def login():
     username = request.get_json(force=True).get('username')
