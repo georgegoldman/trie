@@ -1,8 +1,11 @@
-from flask import Blueprint, render_template, request, redirect
-from application import db, bcrypt
+import os, secrets
+from flask import Blueprint, render_template, request, redirect, url_for
+from flask_login import login_required, login_user, logout_user, current_user
+from application import db, bcrypt, allowed_file, app
 from application.model.eatery import User
 from application.model.menus import Menus
-from flask_login import login_required, login_user, logout_user, current_user
+from werkzeug.utils import secure_filename
+from PIL import Image
 
 eat = Blueprint('eat',__name__)
 
@@ -13,7 +16,8 @@ def eatery():
 @eat.route('/lifeat')
 @login_required
 def lifeat():
-    return render_template('chatting.html')
+    all_menu = Menus.query.all()
+    return render_template('chatting.html', all_menu=all_menu)
 
 @eat.route('/register', methods=['GET'])
 def register_get():
@@ -59,6 +63,20 @@ def makemenu_get():
 @eat.route('/makemenu', methods=['POST'])
 @login_required
 def makemenu_post():
+    image = request.files['image']
+    title = request.form.get('title')
+    description = request.form.get('description')
+    price = request.form.get('price')
+    if allowed_file(image.filename):
+        filename = secrets.token_hex(16)+'.jpg'
+        newMenu = Menus(title=title, description=description, picture=filename, price=price, user_id=current_user.id)
+        db.session.add(newMenu)
+        db.session.commit()
+        image.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        picture = Image.open(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        picture.save(os.path.join(app.config['UPLOAD_FOLDER'], filename), quality=20, optimize=True)
+        # os.rename(os.path.join(app.config['UPLOAD_FOLDER'], filename), os.path.join(app.config['UPLOAD_FOLDER'], new_name+'.jpg'))
+        return redirect(url_for('eat.makemenu_post', filename=filename))
     return request.form
 
 @eat.route('/logout', methods=['GET'])

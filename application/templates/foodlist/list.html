@@ -31,20 +31,22 @@
   <div class="col-5">
     <div class="row">
       <div class="col-xl-12">
+        {% for menu in all_menu %}
         <div class="card mb-3" style="max-width: 540px;">
           <div class="row g-0">
             <div class="col-md-4 col-xl-4">
-              <img src="{{url_for('static', filename='imgs/Ghanaian Joll Of Rice & Beef Kebab 1.jpeg')}}" style="height: auto; width: 100%" alt="...">
+              <img src="{{url_for('static', filename='imgs/menu/')}}{{menu.picture}}" style="height: auto; width: 100%" alt="...">
             </div>
             <div class="col-md-8 col-xl-8">
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">This is a wider card with text below as a natural .</p>
-                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+              <div class="card-body"> 
+                <h5 class="card-title">{{menu.title}}</h5>
+                <p class="card-text">{{menu.description}}</p>
+                <p class="card-text"><small class="text-muted">₦{{menu.price}}</small></p>
               </div>
             </div>
           </div>
         </div>
+        {% endfor %}
       </div>
     </div>
   </div>
