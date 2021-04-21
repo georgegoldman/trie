@@ -17,7 +17,8 @@ def eatery():
 @login_required
 def lifeat():
     all_menu = Menus.query.all()
-    return render_template('chatting.html', all_menu=all_menu)
+    all_user = User.query.all()
+    return render_template('chatting.html', all_menu=all_menu, all_user=all_user)
 
 @eat.route('/register', methods=['GET'])
 def register_get():
@@ -28,15 +29,21 @@ def register_post():
     email  = request.form.get('email')
     password = request.form.get('password')
     username = request.form.get('username')
+    profile_px = request.files['profile_px']
     
     check_user = User.query.filter_by(email=email).first()
     if check_user and check_user.username == username:
         return redirect('/login')
     
-    new_user = User(username=username, email=email, password=password)
+    filename = secrets.token_hex(16)+'.jpg'
+    profile_px__path = '/home/yashuayaweh/Documents/PROGRAMMING/lifeat/application/static/imgs/profile_px'
+    new_user = User(username=username, email=email, profile_px=filename, password=password)
     db.session.add(new_user)
     db.session.commit()
     
+    profile_px.save(os.path.join(profile_px__path, filename))
+    picture = Image.open(os.path.join(profile_px__path, filename))
+    picture.save(os.path.join(profile_px__path  , filename), quality=20, optimize=True)
     return 'user created'
 
 @eat.route('/', methods=['GET'])
@@ -53,7 +60,7 @@ def login_post():
         login_user(search_user)
         return redirect('/lifeat')
     
-    return 'wrong login details'
+    return redirect('/register')
 
 @eat.route('/makemenu', methods=['GET'])
 @login_required

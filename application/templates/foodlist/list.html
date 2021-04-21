@@ -16,28 +16,31 @@
 </div> -->
 
 <div class="row p-3">
-  <div class="col-7">
+  <div class="col-5">
     <div class="row">
-      <div class="col-xl-6">
-        <div class="card" style="width: 100%;">
-          <img src="{{url_for('static', filename='imgs/inkwobi.jpeg')}}" class="card-img-top" alt="...">
+      <div class="col-xl-12">
+        {% for user in all_user %}
+        <div class="card" >
+          <img src="{{url_for('static', filename='imgs/profile_px/')}}{{user.profile_px}}"  class="card-img-top" alt="...">
           <div class="card-body">
             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
           </div>
         </div>
+        <br>
+        {% endfor %}
       </div>
     </div>
   </div>
-  <div class="col-5">
+  <div class="col-7">
     <div class="row">
       <div class="col-xl-12">
         {% for menu in all_menu %}
         <div class="card mb-3" style="max-width: 540px;">
           <div class="row g-0">
-            <div class="col-md-4 col-xl-4">
-              <img src="{{url_for('static', filename='imgs/menu/')}}{{menu.picture}}" style="height: auto; width: 100%" alt="...">
+            <div class="col-md-4 col-xl-5">
+              <img src="{{url_for('static', filename='imgs/menu/')}}{{menu.picture}}" style="height: 100%; width: 100%" alt="...">
             </div>
-            <div class="col-md-8 col-xl-8">
+            <div class="col-md-8 col-xl-7">
               <div class="card-body"> 
                 <h5 class="card-title">{{menu.title}}</h5>
                 <p class="card-text">{{menu.description}}</p>

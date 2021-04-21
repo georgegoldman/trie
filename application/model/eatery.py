@@ -8,12 +8,14 @@ class User(db.Model, UserMixin):
     id = db.Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4, unique=True)
     username = db.Column(db.String(80), unique=True, nullable=False)
     email = db.Column(db.Text, unique=True, nullable=False)
+    profile_px = db.Column(db.Text, nullable=False)
     password = db.Column(db.Text, nullable=False)
     menus = db.relationship('Menus', backref=db.backref('user', lazy=True))
 
-    def __init__(self, username, email, password):
+    def __init__(self, username, email, profile_px, password):
         self.username = username
         self.email = email
+        self.profile_px = profile_px
         self.password = bcrypt.generate_password_hash(password).decode('utf-8')
 
     def __repr__(self) -> str:
@@ -25,5 +27,6 @@ class User(db.Model, UserMixin):
             'id' : self.id,
             'username' : self.username,
             'email' : self.email,
+            'profile_px': self.profile_px,
             'password': self.password,
         }
