@@ -27,6 +27,12 @@
                         <a href="/makemenu" class="material-icons mdc-top-app-bar__action-item mdc-icon-button" aria-label="Search">add</a>
                         <a href="/logout" class="material-icons mdc-top-app-bar__action-item mdc-icon-button" aria-label="Options">logout</a>
                       </section>
+                    {% else %}
+                    <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end" role="toolbar">
+                      <a href="{{auth}}" >
+                        <button class="material-icons-round mdc-top-app-bar__action-item mdc-icon-button" aria-label="Search">how_to_reg </button>
+                      </a> 
+                    </section>
                   {% endif %}
                     </div>
                   </header>

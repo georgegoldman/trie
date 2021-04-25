@@ -23,7 +23,9 @@ def lifeat():
 
 @eat.route('/register', methods=['GET'])
 def register_get():
-    return render_template('register.html')
+    auth = '/'
+    button = 'how_to_reg'
+    return render_template('register.html', auth=auth)
 
 @eat.route('/register', methods=['POST'])
 def register_post():
@@ -49,7 +51,8 @@ def register_post():
 
 @eat.route('/', methods=['GET'])
 def login_get():
-    return render_template('login.html', current_user=current_user)
+    auth = '/register'
+    return render_template('login.html', current_user=current_user, auth=auth)
 
 @eat.route('/loginpost', methods=['POST'])
 def login_post():
