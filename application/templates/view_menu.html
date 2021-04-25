@@ -1,0 +1,35 @@
+{% extends 'index.html' %}
+{% block content %}
+<center class="text-secondary p-xl-5 mb-5">
+    <h3 class=""><span class="material-icons-sharp">
+        dinner_dining
+        </span>{{menu.title}}</h3>
+    <p>{{menu.description}}</p>
+    
+    <h4><span class="material-icons-sharp">
+        paid
+        </span>{{menu.price}}</h4>
+
+    <p><a href="#" style="text-decoration: none;" >
+        <button class="mdc-button mdc-button--outlined">
+            <span class="mdc-button__ripple"></span>
+            <i class="material-icons-sharp mdc-button__icon" aria-hidden="true">credit_score</i>
+            <span class="mdc-button__label">Pay</span>
+          </button>
+    </a></p>
+
+    <p class="m-xl-2" >
+        <a href="/user/{{menu.user_id}}">
+            <button class="material-icons-sharp mdc-top-app-bar__action-item mdc-icon-button text-secondary" aria-label="Search">
+                person
+            </button>
+        </a>
+    </p>
+
+    <div class="text-center mt-xl-5">
+        <img src="{{url_for('static', filename='imgs/menu/')}}{{menu.picture}}" style="height: 20%; width: 20%;" class="rounded" alt="...">
+    </div>
+</center>
+
+
+{% endblock %}

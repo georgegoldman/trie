@@ -18,6 +18,7 @@ def eatery():
 def lifeat():
     all_menu = Menus.query.all()
     all_user = User.query.all()
+    all_menu.reverse()
     return render_template('chatting.html', all_menu=all_menu, all_user=all_user)
 
 @eat.route('/register', methods=['GET'])
@@ -85,6 +86,16 @@ def makemenu_post():
         # os.rename(os.path.join(app.config['UPLOAD_FOLDER'], filename), os.path.join(app.config['UPLOAD_FOLDER'], new_name+'.jpg'))
         return redirect(url_for('eat.makemenu_post', filename=filename))
     return request.form
+
+@eat.route('/user/<user_id>' , methods=['GET'])
+def user(user_id):
+    user = User.query.get(user_id)
+    return render_template('user.html', current_user=current_user, user=user)
+
+@eat.route('/view_menu/<id>', methods=['GET'])
+def view_menu(id):
+    menu = Menus.query.get(id)
+    return render_template('view_menu.html', current_user=current_user, menu=menu)
 
 @eat.route('/logout', methods=['GET'])
 @login_required

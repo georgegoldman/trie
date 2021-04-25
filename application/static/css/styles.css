@@ -108,7 +108,8 @@ html, body {
 }
 
 .mdc-card__media {
-    background-image: url("imgs/inkwobi.jpeg");
+    /* background-image: url('/static/imgs/inkwobi.jpeg'); */
+    background-color: #cccccc;
     height: auto;
   }
 

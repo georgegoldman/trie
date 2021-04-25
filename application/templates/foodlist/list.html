@@ -16,26 +16,10 @@
 </div> -->
 
 <div class="row p-3">
-  <div class="col-5">
-    <div class="row">
-      <div class="col-xl-12">
-        {% for user in all_user %}
-        <div class="card" >
-          <img src="{{url_for('static', filename='imgs/profile_px/')}}{{user.profile_px}}"  class="card-img-top" alt="...">
-          <div class="card-body">
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-          </div>
-        </div>
-        <br>
-        {% endfor %}
-      </div>
-    </div>
-  </div>
-  <div class="col-7">
-    <div class="row">
-      <div class="col-xl-12">
-        {% for menu in all_menu %}
-        <div class="card mb-3" style="max-width: 540px;">
+  {% for menu in all_menu %}
+    <div class="col-6">
+      <a href="/view_menu/{{menu.id}}" style="text-decoration: none;">
+        <div class="card mb-3" >
           <div class="row g-0">
             <div class="col-md-4 col-xl-5">
               <img src="{{url_for('static', filename='imgs/menu/')}}{{menu.picture}}" style="height: 100%; width: 100%" alt="...">
@@ -49,8 +33,14 @@
             </div>
           </div>
         </div>
-        {% endfor %}
-      </div>
+        <p class="m-xl-2" >
+          <a href="/user/{{menu.user_id}}">
+              <button class="material-icons-sharp mdc-top-app-bar__action-item mdc-icon-button text-secondary" aria-label="Search">
+                  person
+              </button>
+          </a>
+      </p>
+      </a>
     </div>
-  </div>
+    {% endfor %}
 </div>
