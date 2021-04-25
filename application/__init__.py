@@ -47,6 +47,8 @@ login_manager = LoginManager(app)
 from .model.eatery import User
 from .model.menus import Menus
 
+db.create_all()
+
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(user_id)
