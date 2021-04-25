@@ -9,7 +9,8 @@
           <!-- <span class="mdc-text-field__affix mdc-text-field__affix--prefix"><span class="material-icons-round">
             person
             </span></span> -->
-          <input class="mdc-text-field__input" id="username" type="text" aria-labelledby="my-label-id">
+          <input class="mdc-text-field__input" hidden id="username" value={{current_user.username}} type="text" aria-labelledby="my-label-id">
+          {{current_user.username}}
           <span class="mdc-text-field__affix mdc-text-field__affix--suffix">
             <span style="font-size: x-large" >🐼</span>
           </span>
