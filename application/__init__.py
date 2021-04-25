@@ -31,7 +31,7 @@ def allowed_file(filename):
 bcrypt = Bcrypt(app)
 
 app.config['DEBUG'] = False
-if app.config["ENV"] == "production":
+if os.environ.get('FLASK_ENV') == "production":
     app.config.from_object("config.ProductionConfig")
 else:
     app.config.from_object("config.DevelopmentConfig")
