@@ -35,6 +35,7 @@ const showSongList = async () => {
 			li.setAttribute("id", song.id)
 			li.addEventListener("click", (e) => {
 				console.log(song.link)
+				alert(`Sorry you can\'t play this track ${song.title} buy an API  `)
 				document.getElementById("musicTray").setAttribute('src', song.link)
 			})
 

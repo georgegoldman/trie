@@ -9,11 +9,15 @@
                 >
                 <span class="mdc-button__label text-secondary" style="font-family: 'Zen Dots', cursive;">{{user.username}}</span>
 
+                {% if current_user.username == user.username %}
+                View booking
+                {% else %}
                 <a href="#" class="mdc-button mdc-button--outlined" style="color:cadetblue">
-                    <span class="mdc-button__ripple"></span>
-                    <i class="material-icons mdc-button__icon" aria-hidden="true">bookmark</i>
-                    <span class="mdc-button__label">Book</span>
-                </a>
+                  <span class="mdc-button__ripple"></span>
+                  <i class="material-icons mdc-button__icon" aria-hidden="true">bookmark</i>
+                  <span class="mdc-button__label">Book</span>
+              </a>
+                {% endif %}
         </h4>
         <hr>
     </div>
