@@ -5,16 +5,15 @@
         <!-- <input type="text" name=”username” class="form-control" id="username"> -->
         <label class="mdc-text-field mdc-text-field--outlined" data-mdc-auto-init="MDCTextField" >
           <span class="mdc-text-field__ripple"></span>
-          <span class="mdc-floating-label" id="my-label-id">Enter name</span>
+          <span class="mdc-floating-label" id="my-label-id" hidden>Enter name</span>
           <!-- <span class="mdc-text-field__affix mdc-text-field__affix--prefix"><span class="material-icons-round">
             person
             </span></span> -->
           <input class="mdc-text-field__input" hidden id="username" value={{current_user.username}} type="text" aria-labelledby="my-label-id">
           {{current_user.username}}
           <span class="mdc-text-field__affix mdc-text-field__affix--suffix">
-            <span style="font-size: x-large" >🐼</span>
           </span>
-          <span class="mdc-line-ripple"></span>
+          <span class="mdc-line-ripple" hidden></span>
         </label>
         <div class="mdc-text-field-helper-line">
           <div class="mdc-text-field-helper-text" id="my-helper-id" aria-hidden="true">eg Micheal Jordan.</div>

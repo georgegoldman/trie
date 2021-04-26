@@ -7,7 +7,7 @@ class Menus(db.Model):
     id = db.Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4, unique=True)
     title = db.Column(db.String(80), nullable=False)
     description = db.Column(db.Text, nullable=False)
-    picture = db.Column(db.String(80), nullable=True)
+    picture = db.Column(db.Text, nullable=True)
     price = db.Column(db.Text, nullable=False)
     user_id  = db.Column(UUID(as_uuid=True), db.ForeignKey('user.id'), nullable=False)
     owner = db.relationship('User', backref=db.backref('menu', lazy=True))

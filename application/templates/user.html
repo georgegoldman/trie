@@ -26,7 +26,7 @@
             <div class="card mb-3" >
                 <div class="row g-0">
                   <div class="col-md-4">
-                    <img src="{{url_for('static', filename='imgs/profile_px/')}}{{user.profile_px}}" style="height: 100%; width: 100%" alt="...">
+                    <img src={{user.profile_px}} style="height: 100%; width: 100%" alt="..."> 
                   </div>
                   <div class="col-md-8 bg-info position-relative">
                     <div class="card-body position-absolute top-50 start-50 translate-middle">
@@ -49,7 +49,7 @@
                 <div class="mdc-card">
                     <div class="mdc-card__primary-action">
                       <div class="mdc-card__media mdc-card__media--square" 
-                        style="background-image: url('/static/imgs/menu/{{menu.picture}}')">
+                        style="background-image: url('{{menu.picture}}')">
                         <div class="mdc-card__media-content p-2 text-secondary">
                             <h4><b><u>{{menu.title}}</u></b></h4>
                         </div>

@@ -1,5 +1,5 @@
-import os, secrets
-from flask import Blueprint, render_template, request, redirect, url_for
+import os, secrets, cloudinary.uploader, cloudinary.api, cloudinary
+from flask import Blueprint, render_template, request, redirect, url_for, flash
 from flask_login import login_required, login_user, logout_user, current_user
 from application import db, bcrypt, allowed_file, app
 from application.model.eatery import User
@@ -36,18 +36,29 @@ def register_post():
     
     check_user = User.query.filter_by(email=email).first()
     if check_user and check_user.username == username:
-        return redirect('/login')
+        return redirect('/')
     
     filename = secrets.token_hex(16)+'.jpg'
-    profile_px__path = '/home/yashuayaweh/Documents/PROGRAMMING/lifeat/application/static/imgs/profile_px'
-    new_user = User(username=username, email=email, profile_px=filename, password=password)
+    # profile_px__path = '/home/yashuayaweh/Documents/PROGRAMMING/lifeat/application/static/imgs/profile_px'
+    upload_img = cloudinary.uploader.upload(
+        profile_px,
+        folder = "lifeat/profile_pix/",
+        public_id=filename,
+        overwrite = True,
+        resource_type = "image"
+        )
+    img = upload_img['url']
+    new_user = User(username=username, email=email, profile_px=img, password=password)
     db.session.add(new_user)
     db.session.commit()
     
-    profile_px.save(os.path.join(profile_px__path, filename))
-    picture = Image.open(os.path.join(profile_px__path, filename))
-    picture.save(os.path.join(profile_px__path  , filename), quality=20, optimize=True)
-    return 'user created'
+    # profile_px.save(os.path.join(profile_px__path, filename))
+    # picture = Image.open(os.path.join(profile_px__path, filename))
+    # picture.save(os.path.join(profile_px__path  , filename), quality=20, optimize=True)
+    #this was the previous obsolete code.
+    flash('Your account have been created')
+    return redirect('/')
+
 
 @eat.route('/', methods=['GET'])
 def login_get():
@@ -80,15 +91,22 @@ def makemenu_post():
     price = request.form.get('price')
     if allowed_file(image.filename):
         filename = secrets.token_hex(16)+'.jpg'
-        newMenu = Menus(title=title, description=description, picture=filename, price=price, user_id=current_user.id)
+        upload_img = cloudinary.uploader.upload(
+            image,
+            folder = "lifeat/menu/",
+            public_id=filename,
+            overwrite = True,
+            resource_type = "image"
+            )
+        img = upload_img['url']
+        newMenu = Menus(title=title, description=description, picture=img, price=price, user_id=current_user.id)
         db.session.add(newMenu)
         db.session.commit()
-        image.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-        picture = Image.open(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-        picture.save(os.path.join(app.config['UPLOAD_FOLDER'], filename), quality=20, optimize=True)
+        # image.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        # picture = Image.open(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        # picture.save(os.path.join(app.config['UPLOAD_FOLDER'], filename), quality=20, optimize=True)
         # os.rename(os.path.join(app.config['UPLOAD_FOLDER'], filename), os.path.join(app.config['UPLOAD_FOLDER'], new_name+'.jpg'))
-        return redirect(url_for('eat.makemenu_post', filename=filename))
-    return request.form
+        return redirect('/lifeat')
 
 @eat.route('/user/<user_id>' , methods=['GET'])
 def user(user_id):
