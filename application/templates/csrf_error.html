@@ -1,0 +1,17 @@
+{% extends 'index.html' %}
+{% block content %}
+<!-- {% include 'nav.html' %} -->
+<!-- <main class="mdc-top-app-bar--fixed-adjust row " style="height: 100% !important;"> -->
+    <div class="row h-100">
+        <div class="col-xl-4 h-100 bg-info">
+            {% include 'auth_temp.html' %}
+        </div>
+        <div class="col-xl-8 p-5">
+            <h1>
+                This is not a trusted anon
+            </h1>
+        </div>
+    </div>
+<!-- </main> -->
+
+{% endblock %}

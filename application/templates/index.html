@@ -10,38 +10,16 @@
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/app.css') }}">
         <link rel="preconnect" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css2?family=Zen+Dots&display=swap" rel="stylesheet">
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Rock+Salt&display=swap" rel="stylesheet">
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Rock+Salt&display=swap" rel="stylesheet">
     </head>
     <body class="h-100" >
         <div class="container-fluid h-100">
-            <div class="row h-100">
-              
-              <header class="mdc-top-app-bar mdc-top-app-bar--fixed col-12" data-mdc-auto-init="MDCTopAppBar" style="height: 8%;">
-                <div class="mdc-top-app-bar__row">
-                  <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
-                    <a href="/lifeat" class="mdc-top-app-bar__title text-white">Lifeat</a>
-                  </section>
-                  {% if current_user.is_authenticated %}
-                      <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end" role="toolbar">
-                        <a href="#notification" class="material-icons-sharp mdc-top-app-bar__action-item mdc-icon-button" aria-label="Search">notifications</a>
-                        <a href="/user/{{current_user.id}}" class="material-icons-sharp mdc-top-app-bar__action-item mdc-icon-button" aria-label="Search">person</a>
-                        <a href="/makemenu" class="material-icons mdc-top-app-bar__action-item mdc-icon-button" aria-label="Search">add</a>
-                        <a href="/logout" class="material-icons mdc-top-app-bar__action-item mdc-icon-button" aria-label="Options">logout</a>
-                      </section>
-                    {% else %}
-                    <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end" role="toolbar">
-                      <a href="{{auth}}" >
-                        <button class="material-icons-round mdc-top-app-bar__action-item mdc-icon-button" aria-label="Search">how_to_reg </button>
-                      </a> 
-                    </section>
-                  {% endif %}
-                    </div>
-                  </header>
-
-
-                  <main class="mdc-top-app-bar--fixed-adjust row mt-3" style="height: 88% !important;">
-                            {% block content %}
-                        {% endblock %}
-                  </main>
+            <div class="row h-100"> 
+              {% block content %}
+              {% endblock %}
             </div>
 
         </div>

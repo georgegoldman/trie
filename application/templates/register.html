@@ -1,146 +1,95 @@
 {% extends 'index.html' %}
 {% block content %}
-
-    <div class="position-relative">
-        <div class="position-absolute top-50 start-50 translate-middle col-12 ">
-          <div class="col-12">
-            <center>
-                <h4><b>Lifeat</b></h4>
-            </center>
+<!-- {% include 'nav.html' %} -->
+<!-- <main class="mdc-top-app-bar--fixed-adjust row " style="height: 100% !important;"> -->
+    <div class="row h-100">
+        <div class="col-xl-4 h-100 bg-info">
+            {% include 'auth_temp.html' %}
         </div>
-            <form action="/register" method="post" enctype="multipart/form-data" class="col-12 p-xl-5">
-                <div class="row">
-                    <legend>
-                        <h5>Register</h5>
-                    </legend>
-                    <div class="col-xl-3 ml-xl-5">
-                        <label class="mdc-text-field mdc-text-field--outlined col-xl-12" data-mdc-auto-init="MDCTextField"  >
-                            <span class="mdc-text-field__ripple"></span>
-                            <span class="mdc-floating-label" id="my-label-id">Username</span>
-                            <input class="mdc-text-field__input" type="text" required
-                                    name="username"
-                                   aria-labelledby="my-label-id"
-                                   aria-controls="my-helper-id"
-                                   aria-describedby="my-helper-id">
-                            <span class="mdc-line-ripple"></span>
-                          </label>
-                          <div class="mdc-text-field-helper-line">
-                            <div class="mdc-text-field-helper-text" id="my-helper-id" aria-hidden="true">eg johndoe.</div>
-                          </div>
-                    </div>
-                    
-                    <div class="col-xl-3">
-                        <label class="mdc-text-field mdc-text-field--outlined col-xl-12" data-mdc-auto-init="MDCTextField"  >
-                            <span class="mdc-text-field__ripple"></span>
-                            <span class="mdc-floating-label" id="my-label-id">Email</span>
-                            <input class="mdc-text-field__input" type="email" required
-                                    name="email"
-                                   aria-labelledby="my-label-id"
-                                   aria-controls="my-helper-id"
-                                   aria-describedby="my-helper-id">
-                            <span class="mdc-line-ripple"></span>
-                          </label>
-                          <div class="mdc-text-field-helper-line">
-                            <div class="mdc-text-field-helper-text" id="my-helper-id" aria-hidden="true">eg Johndoe@email.com.</div>
-                          </div>
-                    </div>
+        <div class="col-xl-6 p-5">
+            <div class="col-12 ps-5">
+                <form action="#" method="post">
 
-
-
-                    <div class="col-xl-3">
-                        <label class="mdc-text-field mdc-text-field--outlined col-xl-12" data-mdc-auto-init="MDCTextField"  >
-                            <span class="mdc-text-field__ripple"></span>
-                            <span class="mdc-floating-label" id="my-label-id">Password</span>
-                            <input class="mdc-text-field__input" type="password" required
-                                    name="password"
-                                   aria-labelledby="my-label-id"
-                                   aria-controls="my-helper-id"
-                                   aria-describedby="my-helper-id">
-                            <span class="mdc-line-ripple"></span>
-                          </label>
-                          <div class="mdc-text-field-helper-line">
-                            <div class="mdc-text-field-helper-text" id="my-helper-id" aria-hidden="true">eg johndoe@123.</div>
-                          </div>
-                    </div>
-
-                    <div class="col-xl-3">
-                      <div class="file_input_div">
-                        <div class="file_input">
-                          <label class="image_input_button mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect mdl-button--colored">
-                            <i class="material-icons">file_upload</i> upload image
-                            <input id="file_input_file" class="none" name="profile_px" type="file" required />
-                          </label>  
+                    <fieldset class="p-5">
+                        <legend>Login</legend>
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                        <div class="col-12 mt-5 pt-3 pb-3">
+                            <label class="mdc-text-field mdc-text-field--outlined col-12" data-mdc-auto-init="MDCTextField" >
+                                <span class="mdc-notched-outline">
+                                  <span class="mdc-notched-outline__leading"></span>
+                                  <span class="mdc-notched-outline__notch">
+                                    <span class="mdc-floating-label" id="my-label-id">Enter phone number</span>
+                                  </span>
+                                  <span class="mdc-notched-outline__trailing"></span>
+                                </span>
+                                <input type="tel"
+                                 id="phone" 
+                                 name="phone"
+                                 pattern="[\+]{1}[0-9]{13}" 
+                                 class="mdc-text-field__input" 
+                                 aria-labelledby="my-label-id"
+                                 required
+                                 >
+                              </label>
+                              <div class="mdc-text-field-helper-line">
+                                <div class="mdc-text-field-helper-text" id="my-helper-id" aria-hidden="true">Eg +2348086000000.</div>
+                              </div>
                         </div>
-                        <div id="file_input_text_div" class="mdl-textfield mdl-js-textfield textfield-demo">
-                          <input class="file_input_text mdl-textfield__input" type="text" disabled readonly id="file_input_text" />
-                          <label class="mdl-textfield__label" for="file_input_text"></label>
-                        </div>
+
+                        <div class="col-12 pb-3">
+                          <label class="mdc-text-field mdc-text-field--outlined col-12" data-mdc-auto-init="MDCTextField" >
+                              <span class="mdc-notched-outline">
+                                <span class="mdc-notched-outline__leading"></span>
+                                <span class="mdc-notched-outline__notch">
+                                  <span class="mdc-floating-label" id="my-label-id">Set username</span>
+                                </span>
+                                <span class="mdc-notched-outline__trailing"></span>
+                              </span>
+                              <input type="phone"
+                                class="mdc-text-field__input"
+                                required 
+                                aria-labelledby="my-label-id">
+                            </label>
+                            <div class="mdc-text-field-helper-line">
+                              <div class="mdc-text-field-helper-text" id="my-helper-id" aria-hidden="true">Eg ukaegbuayoola.</div>
+                            </div>
                       </div>
-                      <style>
-                          .file_input_div {
-                            margin: auto;
-                            /* width: 250px;
-                            height: 40px; */
-                            }
+    
+                        <div class="col-12 mb-4">
+                            <label class="mdc-text-field mdc-text-field--outlined col-12" data-mdc-auto-init="MDCTextField" >
+                                <span class="mdc-notched-outline">
+                                  <span class="mdc-notched-outline__leading"></span>
+                                  <span class="mdc-notched-outline__notch">
+                                    <span class="mdc-floating-label" id="my-label-id">Your password</span>
+                                  </span>
+                                  <span class="mdc-notched-outline__trailing"></span>
+                                </span>
+                                <input type="password"
+                                 class="mdc-text-field__input"
+                                 required 
+                                 aria-labelledby="my-label-id">
+                              </label>
 
-                            .file_input {
-                            float: left;
-                            }
+                        </div>
+    
+                        <div class="col-12">
+                            <button class="mdc-button mdc-button--outlined col-12" type="submit" data-mdc-auto-init="MDCRipple">
+                                <span class="mdc-button__ripple"></span>
+                                <i class="material-icons mdc-button__icon" aria-hidden="true">login</i>
+                                <span class="mdc-button__label">Register</span>
+                              </button>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
 
-                            #file_input_text_div {
-                            width: 200px;
-                            margin-top: -8px;
-                            margin-left: 5px;
-                            }
-
-                            .none {
-                            display: none;
-                            }
-                      </style>
-                      <script>
-                          var fileInputTextDiv = document.getElementById('file_input_text_div');
-var fileInput = document.getElementById('file_input_file');
-var fileInputText = document.getElementById('file_input_text');
-
-fileInput.addEventListener('change', changeInputText);
-fileInput.addEventListener('change', changeState);
-
-function changeInputText() {
-  var str = fileInput.value;
-  var i;
-  if (str.lastIndexOf('\\')) {
-    i = str.lastIndexOf('\\') + 1;
-  } else if (str.lastIndexOf('/')) {
-    i = str.lastIndexOf('/') + 1;
-  }
-  fileInputText.value = str.slice(i, str.length);
-}
-
-function changeState() {
-  if (fileInputText.value.length != 0) {
-    if (!fileInputTextDiv.classList.contains("is-focused")) {
-      fileInputTextDiv.classList.add('is-focused');
-    }
-  } else {
-    if (fileInputTextDiv.classList.contains("is-focused")) {
-      fileInputTextDiv.classList.remove('is-focused');
-    }
-  }
-}
-                      </script>
-                    </div>
-
-                    <div class="col-xl-3 pt-xl-4">
-                        <button class="mdc-button mdc-button--outlined" type="submit">
-                            <span class="mdc-button__ripple"></span>
-                            <i class="material-icons mdc-button__icon" aria-hidden="true">done</i>
-                            <span class="mdc-button__label">Register</span>
-                          </button>
-                    </div>
-                </div>
-            </form>
+        <div class="col-xl-2 p-5">
+            <p><a href="/login">
+                Login
+            </a></p>
         </div>
     </div>
-
+<!-- </main> -->
 
 {% endblock %}
