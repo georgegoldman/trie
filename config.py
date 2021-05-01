@@ -21,13 +21,13 @@ class StagingConfig(Config):
 class DevelopmentConfig(Config):
     DEBUG = True
 
-    SQLALCHEMY_DATABASE_URI = 'postgresql://postgres:password@localhost/lifeat'
+    SQLALCHEMY_DATABASE_URI = 'postgresql://postgres:password@localhost/Trie'
 
     SESSION_COOKIE_SECURE = False
 
 class TestingConfig(Config):
     TESTING = True
 
-    SQLALCHEMY_DATABASE_URI = 'postgresql://postgres:password@localhost/lifeat'
+    SQLALCHEMY_DATABASE_URI = 'postgresql://postgres:password@localhost/Trie'
 
     SESSION_COOKIE_SECURE = False

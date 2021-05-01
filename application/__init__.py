@@ -52,8 +52,8 @@ Migrate = Migrate(app, db)
 login_manager = LoginManager(app)
 crsf = CSRFProtect(app)
 
-from .model.eatery import User
-from .model.menus import Menus
+from .model.user import User
+from .model.triet import Triet
 
 db.create_all()
 

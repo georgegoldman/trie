@@ -1,0 +1,11 @@
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <div class="flashes ms-3  p-5 bg-light">
+    {% for message in messages %}
+        <p>
+            <span class="text-warning">🛈</span> {{ message }}
+        </p>
+    {% endfor %}
+    </div>
+  {% endif %}
+{% endwith %}
