@@ -13,7 +13,8 @@ usr = Blueprint('user',__name__)
 @usr.route('/home')
 @login_required
 def home():
-    return render_template('home.html')
+    all_triet = Triet.query.all()
+    return render_template('home.html', all_triet=all_triet)
 
 @usr.route('/login', methods=['GET'])
 def login_get():
@@ -65,13 +66,23 @@ def create_triet():
     image = request.files['image']
     description = request.form.get('description')
     price = request.form.get('price')
-    return {
-        'data': {
-            'title': title,
-            'description': description,
-            'price': price
-        }
-    }
+    
+    filename = secrets.token_hex(16)+'.jpg'
+    
+    upload_img = cloudinary.uploader.upload(
+        image,
+        folder = "trie/triets/",
+        public_id=filename,
+        overwrite = True,
+        resource_type = "image"
+    )
+    img = upload_img['url']
+    new_triet = Triet(title = title, description = description, picture = img, price = price)
+    db.session.add(new_triet)
+    db.session.commit()
+    
+    flash('Your triet has been added 😋')
+    return redirect('/home')
 
 @usr.route('/logout', methods=['GET'])
 def logout():
