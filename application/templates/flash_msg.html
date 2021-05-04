@@ -1,9 +1,9 @@
 {% with messages = get_flashed_messages() %}
   {% if messages %}
-    <div class="flashes ms-3  p-5 bg-light">
+    <div class="ms-3 bg-light" style="height: 10% !important; margin-bottom: 3px;">
     {% for message in messages %}
         <center>
-          <p>
+          <p class="p-3">
             <span class="text-warning">🛈</span> {{ message }}
         </p>
         </center>

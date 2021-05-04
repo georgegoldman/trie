@@ -3,12 +3,28 @@
     {% include 'nav.html' %}
     <main class="mdc-top-app-bar--fixed-adjust row " style="height: 100% !important;">
       {% include 'flash_msg.html' %}
-        
-        {% for triet in all_triet %}
-          <section id="photos">
-            <img src="{{triet.picture}}" class="w-100" alt="Cute cat">
-            ...
-          </section>
-        {% endfor %}
+      <div class="grid mt-0 row g-0">
+          {% for triet in all_triet %}
+          <div class="grid-item col-xl-4 pb-0 pt-0 p-3">
+            <a href="#">
+              <img src="{{triet.picture}}" class="rounded-3" width="100%" alt="image">
+            </a>
+            <p class="mt-2">
+              <button class="mdc-button">
+                  <span class="mdc-button__ripple"></span>
+                  <span class="material-icons-round ">
+                    favorite
+                    </span>
+              </button>
+              <button class="mdc-button">
+                <span class="mdc-button__ripple"></span>
+                <span class="material-icons-round">
+                  comment_bank
+                  </span>
+            </button>
+            </p>
+          </div>
+          {% endfor %}
+        </div>
     </main>
 {% endblock %}

@@ -14,6 +14,7 @@ usr = Blueprint('user',__name__)
 @login_required
 def home():
     all_triet = Triet.query.all()
+    all_triet.reverse()
     return render_template('home.html', all_triet=all_triet)
 
 @usr.route('/login', methods=['GET'])
@@ -68,6 +69,10 @@ def create_triet():
     price = request.form.get('price')
     
     filename = secrets.token_hex(16)+'.jpg'
+    in_mem_file = os.BytesIO(image.read())
+    # editImage = Image.open(in_mem_file)
+    # editImage.thumbnail()
+    
     
     upload_img = cloudinary.uploader.upload(
         image,
