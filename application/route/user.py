@@ -1,5 +1,5 @@
-import os, secrets, cloudinary.uploader, cloudinary.api, cloudinary
-from flask import Blueprint, render_template, request, redirect, url_for, flash
+import os, io, math, time, random, secrets, cloudinary.uploader, cloudinary.api, cloudinary
+from flask import Blueprint, render_template, request, redirect, flash, jsonify, make_response
 from flask_login import login_required, login_user, logout_user, current_user
 from application import db, bcrypt, allowed_file, app
 from application.model.user import User
@@ -9,13 +9,84 @@ from PIL import Image
 
 usr = Blueprint('user',__name__)
 
-@usr.route('/')
-@usr.route('/home')
-@login_required
-def home():
-    all_triet = Triet.query.all()
-    all_triet.reverse()
-    return render_template('home.html', all_triet=all_triet)
+
+
+heading = "Lorem ipsum dolor sit amet."
+
+content = """
+Lorem ipsum dolor sit amet consectetur, adipisicing elit. 
+Repellat inventore assumenda laboriosam, 
+obcaecati saepe pariatur atque est? Quam, molestias nisi.
+"""
+
+dbr = list()  # The mock database
+
+posts = 500  # num posts to generate
+
+quantity = 20  # num posts to return per request
+
+for x in range(posts):
+
+    """
+    Creates messages/posts by shuffling the heading & content 
+    to create random strings & appends to the db
+    """
+
+    heading_parts = heading.split(" ")
+    random.shuffle(heading_parts)
+
+    content_parts = content.split(" ")
+    random.shuffle(content_parts)
+
+    dbr.append([x, " ".join(heading_parts), " ".join(content_parts)])
+
+
+@usr.route("/")
+def index():
+    """ Route to render the HTML """
+    return render_template("home.html")
+
+
+@usr.route("/load")
+def load():
+    """ Route to return the posts """
+
+    time.sleep(0.2)  # Used to simulate delay
+
+    if request.args:
+        counter = int(request.args.get("c"))  # The 'counter' value sent in the QS
+
+        if counter == 0:
+            print(f"Returning posts 0 to {quantity}")
+            # Slice 0 -> quantity from the db
+            res = make_response(jsonify(dbr[0: quantity]), 200)
+
+        elif counter == posts:
+            print("No more posts")
+            res = make_response(jsonify({}), 200)
+
+        else:
+            print(f"Returning posts {counter} to {counter + quantity}")
+            # Slice counter -> quantity from the db
+            res = make_response(jsonify(dbr[counter: counter + quantity]), 200)
+
+    return res
+
+
+
+# @usr.route('/')
+# @usr.route('/home')
+# @login_required
+# def home():
+#     all_triet = Triet.query.all()
+#     all_triet.reverse()
+#     return render_template('home.html', all_triet=all_triet)
+
+# @usr.route('/page/2')
+# def page2():
+#     all_triet = Triet.query.all()
+#     all_triet.reverse()
+#     return render_template('home2.html', all_triet=all_triet)
 
 @usr.route('/login', methods=['GET'])
 def login_get():
@@ -68,14 +139,19 @@ def create_triet():
     description = request.form.get('description')
     price = request.form.get('price')
     
+    # basewidth = 
     filename = secrets.token_hex(16)+'.jpg'
-    in_mem_file = os.BytesIO(image.read())
-    # editImage = Image.open(in_mem_file)
-    # editImage.thumbnail()
-    
+    in_mem_file = io.BytesIO(image.read())
+    editImage = Image.open(in_mem_file)
+    # w, h = editImage.size
+    # w2, h2 = math.floor(w-((25/100)*w)), math.floor(h-((25/100)*h))
+    editImage.thumbnail((400, 400))
+    in_mem_file = io.BytesIO()
+    editImage.save(in_mem_file, format="jpeg", optimize=True)
+    in_mem_file.seek(0)
     
     upload_img = cloudinary.uploader.upload(
-        image,
+        in_mem_file,
         folder = "trie/triets/",
         public_id=filename,
         overwrite = True,
@@ -88,6 +164,10 @@ def create_triet():
     
     flash('Your triet has been added 😋')
     return redirect('/home')
+    # return {
+    #     'h': h,
+    #     'w': w
+    # }
 
 @usr.route('/logout', methods=['GET'])
 def logout():
