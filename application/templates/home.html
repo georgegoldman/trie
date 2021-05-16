@@ -4,7 +4,7 @@
     <main class="mdc-top-app-bar--fixed-adjust row " style="height: 100% !important;">
       {% include 'flash_msg.html' %}
       <div class="grid mt-0 row g-0" id="scroller">
-          <!-- {% for triet in all_triet %}
+          {% for triet in all_triet %}
           <div class="grid-item col-xl-2 pb-0 pt-0 p-3">
             <a href="#">
               <img src="{{triet.picture}}" class="rounded-3" width="100%" alt="image">
@@ -24,28 +24,7 @@
             </button>
             </p>
           </div>
-          {% endfor %} -->
-          <div id="scroller" class="mb-3">
+          {% endfor %}
 
-            <!-- template schema, hidden from the dom -->
-            <template id="post_template">
-
-              <!-- template content -->
-              <div class="card mb-3 animated fadeIn shadow-sm">
-                <div class="card-body">
-                  <h4 class="card-title" id="title"></h4>
-                  <span class="text-muted" id="content"></span>
-                </div>
-              </div>
-
-            </template>
-
-          </div>
-
-          <!-- element to trigger the IntersectionObserver -->
-          <div class="d-flex justify-content-center mb-3" id="sentinel">
-            <div class="spinner-border" role="status"></div>
-          </div>
-        </div>
     </main>
 {% endblock %}
