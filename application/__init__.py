@@ -55,7 +55,7 @@ crsf = CSRFProtect(app)
 from .model.user import User
 from .model.triet import Triet
 
-db.create_all()
+# db.create_all()
 
 @login_manager.user_loader
 def load_user(user_id):
