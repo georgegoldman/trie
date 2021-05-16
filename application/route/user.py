@@ -169,6 +169,10 @@ def create_triet():
     #     'w': w
     # }
 
+@usr.route('/user_profile')
+def user_profile():
+    return 'this is the user profile'
+
 @usr.route('/logout', methods=['GET'])
 def logout():
     logout_user()
