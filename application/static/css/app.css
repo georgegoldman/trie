@@ -1,7 +1,5 @@
-.mdc-top-app-bar{
-    background-color:cadetblue !important;
-}
-body{
+
+body, #mobile_tab, .mdc-top-app-bar{
     background-color: black !important;
 }
 
