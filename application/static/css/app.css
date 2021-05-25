@@ -9,21 +9,25 @@
     }
  } */
 
- #mobile_tab{
+ .mobile_tab{
     background-color: #6200ee;
  }
 
+ .justify-content-around a.mdc-icon-button {
+     color: white;
+ }
+
 @media (min-width:320px) and (max-width: 640px) and (orientation: portrait) {
-    #desktopMenu {
+    .desktopMenu {
         display: none !important;
     }
     #homeBtn{
-        font-size: 250%;
+        font-size: 300%;
     }
 }
 
 @media (min-width:320px) and (max-width: 960px) and (orientation: landscape) {
-    #desktopMenu {
+    .desktopMenu {
         display: none !important;
     }
     #homeBtn{
@@ -32,13 +36,13 @@
 }
 
 @media (min-width: 641px) {
-    #mobile_tab {
+    .mobile_tab {
         display: none !important;
     }
 }
 
 @media (min-width: 641px) and (orientation: landscape) {
-    #mobile_tab {
+    .mobile_tab {
         display: none !important;
     }
 }
