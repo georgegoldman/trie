@@ -169,6 +169,10 @@ def create_triet():
     #     'w': w
     # }
 
+@usr.route('/authlandingpage')
+def authlandingpage():
+    return render_template('authlandingpage.html')
+
 @usr.route('/user_profile')
 def user_profile():
     return 'this is the user profile'

@@ -3,19 +3,19 @@
 <!-- {% include 'nav.html' %} -->
 <!-- <main class="mdc-top-app-bar--fixed-adjust row " style="height: 100% !important;"> -->
     <div class="row h-100">
-        <div class="col-xl-4 h-100 bg-info">
+        <div class="col-xl-4 h-100 bg-info desktopMenu">
             {% include 'auth_temp.html' %}
         </div>
-        <div class="col-xl-6 p-5">
+        <div class="col-xl-6 col-12 ">
           {% include 'flash_msg.html' %}
-            <div class="col-12 ps-5">
+            <div class="col-12 ps-xl-5 mt-3 pt-3">
                 <form action="/register" method="post">
 
-                    <fieldset class="p-5">
+                    <fieldset">
                         <legend>Register</legend>
                         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
                         <div class="col-12 mt-5 pt-3 pb-3">
-                            <label class="mdc-text-field mdc-text-field--outlined col-12" data-mdc-auto-init="MDCTextField" >
+                            <label class="mdc-text-field mdc-text-field--outlined row" data-mdc-auto-init="MDCTextField" >
                                 <span class="mdc-notched-outline">
                                   <span class="mdc-notched-outline__leading"></span>
                                   <span class="mdc-notched-outline__notch">
@@ -27,7 +27,7 @@
                                  id="phone" 
                                  name="phone"
                                  pattern="[\+]{1}[0-9]{13}" 
-                                 class="mdc-text-field__input" 
+                                 class="mdc-text-field__input col-12" 
                                  aria-labelledby="my-label-id"
                                  required
                                  >
@@ -47,7 +47,7 @@
                                 <span class="mdc-notched-outline__trailing"></span>
                               </span>
                               <input type="text"
-                                class="mdc-text-field__input"
+                                class="mdc-text-field__input col-12"
                                 required
                                 name="username"
                                 aria-labelledby="my-label-id">

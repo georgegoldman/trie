@@ -39,13 +39,13 @@
 }
 
 @media (min-width: 641px) {
-    .mobile_tab {
+    .mobile_tab, .authmobile_tab {
         display: none !important;
     }
 }
 
 @media (min-width: 641px) and (orientation: landscape) {
-    .mobile_tab {
+    .mobile_tab, .authmobile_tab {
         display: none !important;
     }
 }

@@ -61,7 +61,7 @@ from .model.triet import Triet
 def load_user(user_id):
     return User.query.get(user_id)
 
-login_manager.login_view = '/login'
+login_manager.login_view = '/authlandingpage'
 login_manager.login_message = "Please login"
 
 # def get_chatroom(name):
