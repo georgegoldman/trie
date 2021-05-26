@@ -10,24 +10,30 @@
             {% include 'flash_msg.html' %}
             <div class="col-12 h-100 position-relative">
 
-                <div class="position-absolute top-0 start-50 translate-middle-x authmobile_tab col-12">
+                <div class="position-absolute top-0 start-50 translate-middle-x  ">
                     <center>
                         
-                        <h3 class="mt-3" style="font-family: 'Rock Salt', cursive;">
+                        <h3 class="mt-3 authmobile_tab" style="font-family: 'Rock Salt', cursive;">
                             Food is Art <br>
                             <img src="{{url_for('static', filename='imgs/foodis_art.png')}}" height="100%" width="100%" alt="">
 
                         </h3>
                         
-                        <p class="col-12" style="font-family: 'Rock Salt', cursive;">Make art with trie</p>
+                        
                     </center>
                 </div>
 
-                <div class="position-absolute top-50 start-50 translate-middle">
+                <div class="position-absolute top-50 start-50 translate-middle col-12">
+                    <center>
+                        <p class="col-12 text-primary" style="font-family: 'Rock Salt', cursive;">Make art with trie</p>
+                    </center>
+                </div>
+
+                <div class="position-absolute bottom-0 start-50 translate-middle-x">
                     
-                    <div class="mt-5 pt-5">
-                        <p class="mt-5">
-                            <a href="/register" class="mdc-button mdc-button--outlined">
+                    <div class="">
+                        <p class="">
+                            <a href="/register" class="mdc-button mdc-button--outlined bg-light">
                                 <span class="mdc-button__ripple"></span>
                                 <i class="material-icons mdc-button__icon" aria-hidden="true">how_to_reg</i>
                                 <span class="mdc-button__label">Register</span>
@@ -36,7 +42,7 @@
     
                         <p>
                         <center>
-                            <a href="/login" class="mdc-button mdc-button--outlined">
+                            <a href="/login" class="mdc-button mdc-button--outlined bg-light">
                                 <span class="mdc-button__ripple"></span>
                                 <i class="material-icons mdc-button__icon" aria-hidden="true">login</i>
                                 <span class="mdc-button__label">login</span>
