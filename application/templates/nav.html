@@ -1,4 +1,4 @@
-<header class="mdc-top-app-bar mdc-top-app-bar--fixed border-bottom border-light col-12 bgTab " data-mdc-auto-init="MDCTopAppBar" >
+<header class="mdc-top-app-bar mdc-top-app-bar--fixed border-bottom border-light  bgTab" style="background-color: black !important" data-mdc-auto-init="MDCTopAppBar" >
     <div class="mdc-top-app-bar__row">
       <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start ">
         <a href="/" class="mdc-top-app-bar__title text-white desktopMenu">
@@ -9,15 +9,15 @@
             font-family: 'Rock Salt', cursive;" >Trie
           </em>
         </a>
-        <a href="#notification" class="material-icons-sharp mobile_tab mdc-top-app-bar__action-item mdc-icon-button" aria-label="Search" >arrow_back_ios_new</a>
+        <button class="material-icons-sharp mobile_tab mdc-top-app-bar__action-item mdc-icon-button" onclick="window.history.back();" aria-label="Search" style="background-color: black !important" >arrow_back_ios_new</button>
       </section>
       {% if current_user.is_authenticated %}
           <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end" role="toolbar">
             <a href="#notification" class="material-icons-sharp desktopMenu mdc-top-app-bar__action-item mdc-icon-button" aria-label="Search">notifications</a>
             <a href="/search" class="material-icons-sharp mdc-top-app-bar__action-item mdc-icon-button" aria-label="Search">search</a>
-            <a href="/user/{{current_user.id}}" class="material-icons-sharp mdc-top-app-bar__action-item mdc-icon-button" aria-label="Search">person</a>
+            <a href="/user_profile" class="material-icons-sharp mdc-top-app-bar__action-item mdc-icon-button" aria-label="Search">person</a>
             <a href="/make_treat" class="desktopMenu material-icons mdc-top-app-bar__action-item mdc-icon-button" aria-label="Search">add</a>
-            <a href="/logout" class="material-icons desktopMenu mdc-top-app-bar__action-item mdc-icon-button" aria-label="Options">logout</a>
+            <a href="/logout" class="material-icons mdc-top-app-bar__action-item mdc-icon-button" aria-label="Options">logout</a>
           </section>
         {% else %}
         <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end" role="toolbar">

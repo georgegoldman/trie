@@ -1,4 +1,6 @@
 import os, io, math, time, random, secrets, cloudinary.uploader, cloudinary.api, cloudinary
+
+from flask.templating import render_template_string
 from flask import Blueprint, render_template, request, redirect, flash, jsonify, make_response
 from flask_login import login_required, login_user, logout_user, current_user
 from application import db, bcrypt, allowed_file, app
@@ -128,11 +130,13 @@ def register_post():
     return redirect('/login')
 
 @usr.route('/make_treat', methods=['GET'])
+@login_required
 def make_treate__get():
     
     return render_template('make_treat.html')
 
 @usr.route('/create_triet', methods=['POST'])
+@login_required
 def create_triet():
     title = request.form.get('title')
     image = request.files['image']
@@ -174,10 +178,17 @@ def authlandingpage():
     return render_template('authlandingpage.html')
 
 @usr.route('/user_profile')
+@login_required
 def user_profile():
-    return 'this is the user profile'
+    return render_template('user_profil.html', current_user=current_user)
+
+
+@usr.route('/edit', methods=['GET'])
+@login_required
+def edit():
+    return render_template('edit.html', current_user=current_user)
 
 @usr.route('/logout', methods=['GET'])
 def logout():
     logout_user()
-    return redirect('/login')
+    return redirect('/authlandingpage')

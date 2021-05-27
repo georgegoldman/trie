@@ -1,0 +1,252 @@
+{% extends 'index.html' %}
+{% block content %}
+    {% include 'nav.html' %}
+    <main class="mdc-top-app-bar--fixed-adjust   " style="height: 100% !important;">
+      {% include 'flash_msg.html' %}
+        
+      <div class="container">
+          <div class="row">
+            <form action="/register" method="post">
+                <div class="row">
+                    <div class="col-xl-4 mt-2">
+                        <fieldset>
+                            <legend>Profile</legend>
+                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                            <div class="col-12  pt-3 pb-3">
+                                <label class="mdc-text-field mdc-text-field--outlined row" data-mdc-auto-init="MDCTextField" >
+                                    <span class="mdc-notched-outline">
+                                      <span class="mdc-notched-outline__leading"></span>
+                                      <span class="mdc-notched-outline__notch">
+                                        <span class="mdc-floating-label" id="my-label-id"><span class="material-icons-outlined">
+                                            call
+                                            </span></span>
+                                      </span>
+                                      <span class="mdc-notched-outline__trailing"></span>
+                                    </span>
+                                    <input type="tel"
+                                     id="phone" 
+                                     name="phone"
+                                     value="{{current_user.phone}}"
+                                     placeholder="Enter your new phone number"
+                                     pattern="[\+]{1}[0-9]{13}" 
+                                     class="mdc-text-field__input col-12" 
+                                     aria-labelledby="my-label-id"
+                                     >
+                                  </label>
+                                  <div class="mdc-text-field-helper-line">
+                                    <div class="mdc-text-field-helper-text" id="my-helper-id" aria-hidden="true">Eg +2348086000000.</div>
+                                  </div>
+                            </div>
+                
+                            <div class="col-12 pb-3">
+                              <label class="mdc-text-field mdc-text-field--outlined col-12" data-mdc-auto-init="MDCTextField" >
+                                  <span class="mdc-notched-outline">
+                                    <span class="mdc-notched-outline__leading"></span>
+                                    <span class="mdc-notched-outline__notch">
+                                      <span class="mdc-floating-label" id="my-label-id"><span class="material-icons-outlined">
+                                        person
+                                        </span> Set username</span>
+                                    </span>
+                                    <span class="mdc-notched-outline__trailing"></span>
+                                  </span>
+                                  <input type="text"
+                                    class="mdc-text-field__input col-12"
+                                    name="username"
+                                    placeholder="Enter new username"
+                                    value="{{current_user.username}}"
+                                    aria-labelledby="my-label-id">
+                                </label>
+                                <div class="mdc-text-field-helper-line">
+                                  <div class="mdc-text-field-helper-text" id="my-helper-id" aria-hidden="true">Eg ukaegbuayoola.</div>
+                                </div>
+                          </div>
+                
+                            <div class="col-12 mb-4">
+                                <label class="mdc-text-field mdc-text-field--outlined col-12" data-mdc-auto-init="MDCTextField" >
+                                    <span class="mdc-notched-outline">
+                                      <span class="mdc-notched-outline__leading"></span>
+                                      <span class="mdc-notched-outline__notch">
+                                        <span class="mdc-floating-label" id="my-label-id"><span class="material-icons-outlined">
+                                            password
+                                            </span> Your password</span>
+                                      </span>
+                                      <span class="mdc-notched-outline__trailing"></span>
+                                    </span>
+                                    <input type="password"
+                                     class="mdc-text-field__input"
+                                     name="password"
+                                     placeholder="Password"
+                                     aria-labelledby="my-label-id">
+                                  </label>
+                
+                            </div>
+                        </fieldset>
+                    </div>
+
+                    <div class="col-xl-4 mt-2">
+                        <fieldset>
+                            <legend>Account settings</legend>
+                            <div class="col-12   pb-3">
+                                <div class="mdc-select mdc-select--filled demo-width-class col-12" data-mdc-auto-init="MDCSelect">
+                                    <div class="mdc-select__anchor">
+                                      <span class="mdc-select__ripple"></span>
+                                      <span class="mdc-floating-label mdc-floating-label--float-above">Account type</span>
+                                      <span class="mdc-select__selected-text-container">
+                                        <span class="mdc-select__selected-text">{{current_user.username}}</span>
+                                      </span>
+                                      <span class="mdc-select__dropdown-icon">
+                                        <svg
+                                            class="mdc-select__dropdown-icon-graphic"
+                                            viewBox="7 10 10 5" focusable="false">
+                                          <polygon
+                                              class="mdc-select__dropdown-icon-inactive"
+                                              stroke="none"
+                                              fill-rule="evenodd"
+                                              points="7 10 12 15 17 10">
+                                          </polygon>
+                                          <polygon
+                                              class="mdc-select__dropdown-icon-active"
+                                              stroke="none"
+                                              fill-rule="evenodd"
+                                              points="7 15 12 10 17 15">
+                                          </polygon>
+                                        </svg>
+                                      </span>
+                                      <span class="mdc-line-ripple"></span>
+                                    </div>
+                                  
+                                    <div class="mdc-select__menu demo-width-class mdc-menu mdc-menu-surface">
+                                      <ul class="mdc-list">
+                                        <li class="mdc-list-item" data-value="grains">
+                                          <span class="mdc-list-item__ripple"></span>
+                                          <span class="mdc-list-item__text">Business</span>
+                                        </li>
+                                        <li class="mdc-list-item mdc-list-item--selected" data-value="{{current_user.username}}" aria-selected="true">
+                                          <span class="mdc-list-item__ripple"></span>
+                                          <span class="mdc-list-item__text">Personal</span>
+                                        </li>
+                                      </ul>
+                                    </div>
+                                  </div>
+                            </div>
+                
+                        </fieldset>
+                    </div>
+
+                    <div class="col-xl-4 mt-2">
+                        <fieldset>
+                            <legend>Social Networks</legend>
+                            <div class="col-12   pb-3">
+                                <label class="mdc-text-field mdc-text-field--outlined row" data-mdc-auto-init="MDCTextField" >
+                                    <span class="mdc-notched-outline">
+                                      <span class="mdc-notched-outline__leading"></span>
+                                      <span class="mdc-notched-outline__notch">
+                                        <span class="mdc-floating-label text-warning" id="my-label-id">
+                                            <i class="fab fa-instagram "></i> Instagram
+                                        </span>
+                                      </span>
+                                      <span class="mdc-notched-outline__trailing"></span>
+                                    </span>
+                                    <input type="text"
+                                     id="instagram" 
+                                     name="instagram"
+                                     value="{{current_user.username}}"
+                                     placeholder="Change instagram username" 
+                                     class="mdc-text-field__input col-12" 
+                                     aria-labelledby="my-label-id"
+                                     >
+                                  </label>
+                                  <div class="mdc-text-field-helper-line">
+                                    <div class="mdc-text-field-helper-text" id="my-helper-id" aria-hidden="true">Eg {{current_user.username}}.</div>
+                                  </div>
+                            </div>
+                
+                            <div class="col-12 pb-3">
+                              <label class="mdc-text-field mdc-text-field--outlined col-12" data-mdc-auto-init="MDCTextField" >
+                                  <span class="mdc-notched-outline">
+                                    <span class="mdc-notched-outline__leading"></span>
+                                    <span class="mdc-notched-outline__notch">
+                                      <span class="mdc-floating-label text-danger" id="my-label-id">
+                                        <i class="fab fa-youtube"></i> Youtube
+                                      </span>
+                                    </span>
+                                    <span class="mdc-notched-outline__trailing"></span>
+                                  </span>
+                                  <input type="text"
+                                    class="mdc-text-field__input col-12"
+                                    name="youtube"
+                                    placeholder="Enter your youtube link"
+                                    value="https://www.youtube.com/channel/ajdhjad"
+                                    aria-labelledby="my-label-id">
+                                </label>
+                                <div class="mdc-text-field-helper-line">
+                                  <div class="mdc-text-field-helper-text" id="my-helper-id" aria-hidden="true">Eg https://www.youtube.com/channel/ajdhjad.</div>
+                                </div>
+                          </div>
+                
+                            <div class="col-12 mb-4">
+                                <label class="mdc-text-field mdc-text-field--outlined col-12" data-mdc-auto-init="MDCTextField" >
+                                    <span class="mdc-notched-outline">
+                                      <span class="mdc-notched-outline__leading"></span>
+                                      <span class="mdc-notched-outline__notch">
+                                        <span class="mdc-floating-label text-primary" id="my-label-id">
+                                            <i class="fab fa-twitter"></i>
+                                            Twitter
+                                        </span>
+                                      </span>
+                                      <span class="mdc-notched-outline__trailing"></span>
+                                    </span>
+                                    <input type="text"
+                                     class="mdc-text-field__input"
+                                     name="twitter"
+                                     value="{{current_user.username}}"
+                                     placeholder="Change twitter username"
+                                     aria-labelledby="my-label-id">
+                                  </label>
+                                  <div class="mdc-text-field-helper-line">
+                                    <div class="mdc-text-field-helper-text" id="my-helper-id" aria-hidden="true">Eg {{current_user.username}}.</div>
+                                  </div>
+                
+                            </div>
+
+                            <div class="col-12 mb-4">
+                                <label class="mdc-text-field mdc-text-field--outlined col-12" data-mdc-auto-init="MDCTextField" >
+                                    <span class="mdc-notched-outline">
+                                      <span class="mdc-notched-outline__leading"></span>
+                                      <span class="mdc-notched-outline__notch">
+                                        <span class="mdc-floating-label text-info" id="my-label-id">
+                                            <i class="fas fa-globe"></i>
+                                            Website
+                                        </span>
+                                      </span>
+                                      <span class="mdc-notched-outline__trailing"></span>
+                                    </span>
+                                    <input type="text"
+                                     class="mdc-text-field__input"
+                                     name="twitter"
+                                     value="https://www.youtube.com/channel/ajdhjad"
+                                     placeholder="Change your website link"
+                                     aria-labelledby="my-label-id">
+                                  </label>
+                                  <div class="mdc-text-field-helper-line">
+                                    <div class="mdc-text-field-helper-text" id="my-helper-id" aria-hidden="true">Eg https://www.youtube.com/channel/ajdhjad.</div>
+                                  </div>
+                
+                            </div>
+                        </fieldset>
+                    </div>
+                </div>
+                <div class="col-xl-2 col-12 mb-5 pb-5">
+                    <button class="mdc-button mdc-button--outlined col-12" type="submit" data-mdc-auto-init="MDCRipple">
+                        <span class="mdc-button__ripple"></span>
+                        <i class="material-icons mdc-button__icon" aria-hidden="true">login</i>
+                        <span class="mdc-button__label">Register</span>
+                      </button>
+                </div>
+            </form>
+          </div>
+      </div>
+
+    </main>
+    {% include 'mobilenav.html' %}
+{% endblock %}
