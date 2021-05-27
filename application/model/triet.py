@@ -21,7 +21,7 @@ class Triet(db.Model):
         self.user_id = current_user.id
 
     def __repr__(self) -> str:
-        return f'{self.name}'
+        return f'{self.title}'
 
     @property
     def serialize(self):
