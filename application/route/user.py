@@ -181,9 +181,26 @@ def authlandingpage():
 @login_required
 def user_profile():
     return render_template('user_profil.html', current_user=current_user)
+    
+@usr.route('/updateuserprofilepix')
+@login_required
+def updateuserprofilepix():
+    users = User.query.filter_by(profile_px=None).all()
+    for user in users:
+        getuser = user.query.filter_by(username=user.username).first()
+        getuser.profile_px = "https://res.cloudinary.com/ukony/image/upload/v1622147875/user_prwunp.svg"
+        db.session.add(getuser)
+    db.session.commit()
+    return 'update successful 👊'
 
+@usr.route('/editaccountdetails', methods=['POST'])
+@login_required
+def editaccountdetails():
+    return {
+        'msg': 'well submitted'
+    }
 
-@usr.route('/edit', methods=['GET'])
+@usr.route('/editaccountdetails', methods=['GET'])
 @login_required
 def edit():
     return render_template('edit.html', current_user=current_user)
