@@ -178,6 +178,10 @@ def triet_id(id):
     getTreat = Triet.query.get(id)
     return render_template('trietview.html', triet=getTreat)
 
+@usr.route('/wallet', methods=['GET'])
+def wallet():
+    return render_template('wallet.html')
+
 @usr.route('/authlandingpage')
 def authlandingpage():
     return render_template('authlandingpage.html')
