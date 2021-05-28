@@ -205,9 +205,30 @@ def updateuserprofilepix():
 @usr.route('/editaccountdetails', methods=['POST'])
 @login_required
 def editaccountdetails():
+    #personal data 
+    upload_profile_px = request.files['profile_px']
+    phone = request.form.get('phone')
+    username = request.form.get('username')
+    #account settings
+    accounttype = request.form.get('accounttype')
+    #socail network
+    instagram = request.form.get('instagram')
+    youtube = request.form.get('youtube')
+    twitter = request.form.get('twitter')
+    website = request.form.get('website')
+
     return {
-        'msg': 'well submitted'
+        'data': {
+            'phone': phone,
+            'username': username,
+            'accounttype': accounttype,
+            'instagram': instagram,
+            'youtube': youtube,
+            'twitter': twitter,
+            'website': website,
+        }
     }
+
 
 @usr.route('/editaccountdetails', methods=['GET'])
 @login_required

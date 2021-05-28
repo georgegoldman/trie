@@ -6,7 +6,7 @@
         
       <div class="container">
           <div class="row">
-            <form action="/register" method="post">
+            <form action="/editaccountdetails" method="post" enctype="multipart/form-data">
                 <div class="row">
                     <div class="col-xl-4 mt-2">
                       <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
@@ -24,7 +24,7 @@
                                   </label>
                                 </p>
                               </center>
-                              <input type="file"  accept="image/*" name="image" id="file"  onchange="loadFile(event)" style="display: none;">
+                              <input type="file"  accept="image/*" value={{current_user.profile_px}} name="profile_px" id="file"  onchange="loadFile(event)" style="display: none;">
                               <script>
                                 var loadFile = function(event) {
                                   var image = document.getElementById('output');
@@ -80,26 +80,7 @@
                                   <div class="mdc-text-field-helper-text" id="my-helper-id" aria-hidden="true">Eg ukaegbuayoola.</div>
                                 </div>
                           </div>
-                
-                            <div class="col-12 mb-4">
-                                <label class="mdc-text-field mdc-text-field--outlined col-12" data-mdc-auto-init="MDCTextField" >
-                                    <span class="mdc-notched-outline">
-                                      <span class="mdc-notched-outline__leading"></span>
-                                      <span class="mdc-notched-outline__notch">
-                                        <span class="mdc-floating-label" id="my-label-id"><span class="material-icons-outlined">
-                                            password
-                                            </span> Your password</span>
-                                      </span>
-                                      <span class="mdc-notched-outline__trailing"></span>
-                                    </span>
-                                    <input type="password"
-                                     class="mdc-text-field__input"
-                                     name="password"
-                                     placeholder="Password"
-                                     aria-labelledby="my-label-id">
-                                  </label>
-                
-                            </div>
+
                         </fieldset>
                     </div>
 
@@ -107,53 +88,10 @@
                         <fieldset>
                             <legend>Account settings</legend>
                             <div class="col-12   pb-3">
-                                <div class="mdc-select mdc-select--outlined  col-12" data-mdc-auto-init="MDCSelect">
-                                  <div class="mdc-select__anchor">
-                                    <span class="mdc-notched-outline">
-                                      <span class="mdc-notched-outline__leading"></span>
-                                      <span class="mdc-notched-outline__trailing"></span>
-                                    </span>
-                                    <span class="mdc-select__selected-text-container">
-                                      <span class="mdc-select__selected-text"></span>
-                                    </span>
-                                    <span class="mdc-select__dropdown-icon">
-                                      <svg
-                                          class="mdc-select__dropdown-icon-graphic"
-                                          viewBox="7 10 10 5" focusable="false">
-                                        <polygon
-                                            class="mdc-select__dropdown-icon-inactive"
-                                            stroke="none"
-                                            fill-rule="evenodd"
-                                            points="7 10 12 15 17 10">
-                                        </polygon>
-                                        <polygon
-                                            class="mdc-select__dropdown-icon-active"
-                                            stroke="none"
-                                            fill-rule="evenodd"
-                                            points="7 15 12 10 17 15">
-                                        </polygon>
-                                      </svg>
-                                    </span>
-                                  </div>
-                                  
-                                  <div class="mdc-select__menu demo-width-class mdc-menu mdc-menu-surface">
-                                    <ul class="mdc-list">
-                                      <li class="mdc-list-item" data-value="">
-                                        <span class="mdc-list-item__ripple"></span>
-                                      </li>
-                                      <li class="mdc-list-item mdc-list-item--selected" data-value="vegetables" aria-selected="true">
-                                        <span class="mdc-list-item__ripple"></span>
-                                        <span class="mdc-list-item__text">Personal</span>
-                                      </li>
-                                      <li class="mdc-list-item" data-value="fruit">
-                                        <span class="mdc-list-item__ripple"></span>
-                                        <span class="mdc-list-item__text">Business</span>
-                                      </li>
-                                    </ul>
-                                  </div>
-                                  <!-- Other elements from the select remain. -->
-                                  <div class="mdc-select__menu mdc-menu mdc-menu-surface mdc-menu-surface--fullwidth">Account type</div>
-                                  </div>
+                              <select class="form-select" name="accounttype" aria-label="Default select example">
+                                <option value="personal">personal</option>
+                                <option value="business">business</option>
+                              </select>
                             </div>
                 
                         </fieldset>
@@ -249,7 +187,7 @@
                                     </span>
                                     <input type="text"
                                      class="mdc-text-field__input"
-                                     name="twitter"
+                                     name="website"
                                      value="https://www.youtube.com/channel/ajdhjad"
                                      placeholder="Change your website link"
                                      aria-labelledby="my-label-id">
@@ -266,7 +204,7 @@
                     <button class="mdc-button mdc-button--outlined col-12" type="submit" data-mdc-auto-init="MDCRipple">
                         <span class="mdc-button__ripple"></span>
                         <i class="material-icons mdc-button__icon" aria-hidden="true">login</i>
-                        <span class="mdc-button__label">Register</span>
+                        <span class="mdc-button__label">Save</span>
                       </button>
                 </div>
             </form>
