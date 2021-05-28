@@ -173,6 +173,11 @@ def create_triet():
     #     'w': w
     # }
 
+@usr.route('/triet/<id>', methods=['GET'])
+def triet_id(id):
+    getTreat = Triet.query.get(id)
+    return render_template('trietview.html', triet=getTreat)
+
 @usr.route('/authlandingpage')
 def authlandingpage():
     return render_template('authlandingpage.html')

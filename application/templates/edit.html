@@ -6,31 +6,32 @@
         
       <div class="container">
           <div class="row">
-            <form action="/editaccountdetails" method="post">
+            <form action="/register" method="post">
                 <div class="row">
                     <div class="col-xl-4 mt-2">
+                      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
                         <fieldset>
                             <legend>Profile</legend>
+
                             
-                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
-                            <div class="col-xl-12 col-12 d-flex justify-content-center">
-                              <div class="">
-                                <p><img id="profilepix" src="{{current_user.profile_px}}" class="rounded border"    width="200" /></p>
-                                <p><input type="file"  accept="image/*" name="image" id="file"  onchange="loadFile(event)" style="display: none;"></p>
-                                <p><label for="file" style="cursor: pointer;" class="mdc-button mdc-button--outlined">
+                              
+                              <center>
+                                <img id="output" src={{current_user.profile_px}} width="200" />
+                                <p class="p-2 "><label for="file" style="cursor: pointer;" class="mdc-button mdc-button--outlined">
                                       <span class="material-icons-sharp">
                                       image
                                       </span> Upload Image
                                   </label>
                                 </p>
-                                <script>
-                                  var loadFile = function(event) {
-                                    var image = document.getElementById('profilepix');
-                                    image.src = URL.createObjectURL(event.target.files[0]);
-                                  };
-                                  </script>
-                              </div>
-                            </div>
+                              </center>
+                              <input type="file"  accept="image/*" name="image" id="file"  onchange="loadFile(event)" style="display: none;">
+                              <script>
+                                var loadFile = function(event) {
+                                  var image = document.getElementById('output');
+                                  image.src = URL.createObjectURL(event.target.files[0]);
+                                };
+                                </script>
+
                             <div class="col-12  pt-3 pb-3">
                                 <label class="mdc-text-field mdc-text-field--outlined row" data-mdc-auto-init="MDCTextField" >
                                     <span class="mdc-notched-outline">
@@ -107,45 +108,51 @@
                             <legend>Account settings</legend>
                             <div class="col-12   pb-3">
                                 <div class="mdc-select mdc-select--outlined  col-12" data-mdc-auto-init="MDCSelect">
-                                    <div class="mdc-select__anchor" aria-labelledby="outlined-select-label">
-                                      <span class="mdc-select__ripple"></span>
-                                      <span class="mdc-floating-label mdc-floating-label--float-above">Account type</span>
-                                      <span class="mdc-select__selected-text-container">
-                                        <span class="mdc-select__selected-text">{{current_user.username}}</span>
-                                      </span>
-                                      <span class="mdc-select__dropdown-icon">
-                                        <svg
-                                            class="mdc-select__dropdown-icon-graphic"
-                                            viewBox="7 10 10 5" focusable="false">
-                                          <polygon
-                                              class="mdc-select__dropdown-icon-inactive"
-                                              stroke="none"
-                                              fill-rule="evenodd"
-                                              points="7 10 12 15 17 10">
-                                          </polygon>
-                                          <polygon
-                                              class="mdc-select__dropdown-icon-active"
-                                              stroke="none"
-                                              fill-rule="evenodd"
-                                              points="7 15 12 10 17 15">
-                                          </polygon>
-                                        </svg>
-                                      </span>
-                                      <span class="mdc-line-ripple"></span>
-                                    </div>
+                                  <div class="mdc-select__anchor">
+                                    <span class="mdc-notched-outline">
+                                      <span class="mdc-notched-outline__leading"></span>
+                                      <span class="mdc-notched-outline__trailing"></span>
+                                    </span>
+                                    <span class="mdc-select__selected-text-container">
+                                      <span class="mdc-select__selected-text"></span>
+                                    </span>
+                                    <span class="mdc-select__dropdown-icon">
+                                      <svg
+                                          class="mdc-select__dropdown-icon-graphic"
+                                          viewBox="7 10 10 5" focusable="false">
+                                        <polygon
+                                            class="mdc-select__dropdown-icon-inactive"
+                                            stroke="none"
+                                            fill-rule="evenodd"
+                                            points="7 10 12 15 17 10">
+                                        </polygon>
+                                        <polygon
+                                            class="mdc-select__dropdown-icon-active"
+                                            stroke="none"
+                                            fill-rule="evenodd"
+                                            points="7 15 12 10 17 15">
+                                        </polygon>
+                                      </svg>
+                                    </span>
+                                  </div>
                                   
-                                    <div class="mdc-select__menu demo-width-class mdc-menu mdc-menu-surface">
-                                      <ul class="mdc-list">
-                                        <li class="mdc-list-item" data-value="grains">
-                                          <span class="mdc-list-item__ripple"></span>
-                                          <span class="mdc-list-item__text">Business</span>
-                                        </li>
-                                        <li class="mdc-list-item mdc-list-item--selected" data-value="{{current_user.username}}" aria-selected="true">
-                                          <span class="mdc-list-item__ripple"></span>
-                                          <span class="mdc-list-item__text">Personal</span>
-                                        </li>
-                                      </ul>
-                                    </div>
+                                  <div class="mdc-select__menu demo-width-class mdc-menu mdc-menu-surface">
+                                    <ul class="mdc-list">
+                                      <li class="mdc-list-item" data-value="">
+                                        <span class="mdc-list-item__ripple"></span>
+                                      </li>
+                                      <li class="mdc-list-item mdc-list-item--selected" data-value="vegetables" aria-selected="true">
+                                        <span class="mdc-list-item__ripple"></span>
+                                        <span class="mdc-list-item__text">Personal</span>
+                                      </li>
+                                      <li class="mdc-list-item" data-value="fruit">
+                                        <span class="mdc-list-item__ripple"></span>
+                                        <span class="mdc-list-item__text">Business</span>
+                                      </li>
+                                    </ul>
+                                  </div>
+                                  <!-- Other elements from the select remain. -->
+                                  <div class="mdc-select__menu mdc-menu mdc-menu-surface mdc-menu-surface--fullwidth">Account type</div>
                                   </div>
                             </div>
                 
