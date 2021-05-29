@@ -4,51 +4,58 @@
     <main class="mdc-top-app-bar--fixed-adjust   " style="height: 100% !important;">
       {% include 'flash_msg.html' %}
         <div class="container">
-            <div class="row p-xl-5 ">
+            <div class="row p-xl-5 mt-3">
                 <div class="col-12 ">
-                  <center>
-                    <img id="output" src={{current_user.profile_px}} width="200" />
-                  </center>
-                    <div class="d-flex justify-content-center">
+                    <p class="d-flex justify-content-between">
+                        <a href="/editaccountdetails" class="mdc-button text-dark bg-light">
+                          <span class="mdc-button__ripple"></span>
+                          <i class="material-icons mdc-button__icon" aria-hidden="true"
+                            >settings</i
+                          >
+                          <span class="mdc-button__label">settings</span>
+                      </a>
 
-                        <div class="col-xl-4 col-12">
-                            <p>
-                                <div class="d-flex justify-content-center">
-                                    {{current_user.username}}
-                                </div>
-                            </p>
-                            <div class="d-flex justify-content-evenly">
-                                <a href="#twitter"><i class="fab">&#xf099</i></a>
-                                <a href="#youtube"><i class="fab text-danger">&#xf167</i></a>
-                                <a href="#instagram"><i class="fab text-warning">&#xf16d</i></a>
-                                <a href="#website"><i class="fas text-info">&#xf0ac</i></a>
-                            </div>
+                      <a href="/logout" class="mdc-button text-dark bg-light">
+                        <span class="mdc-button__ripple"></span>
+                        <i class="material-icons mdc-button__icon" aria-hidden="true"
+                          >logout</i
+                        >
+                        <span class="mdc-button__label">logout</span>
+                    </a>
+                  </p>
+                    <center>
+                      <img id="output" src={{current_user.profile_px}} width="200" />
+                    </center>
+                      <div class="d-flex justify-content-center">
 
-                            <p>
-                                <div class="row">
-                                    <div class="col-2">
-                                        <span class="material-icons-outlined text-success">
-                                            bookmark_border
-                                        </span>
-                                    </div>
-    
-                                    <div class="col-10 bg-light">
-                                        
-                                    </div>
-                                </div>
-                            </p>
+                          <div class="col-xl-4 col-12">
+                              <p>
+                                  <div class="d-flex justify-content-center">
+                                      {{current_user.username}}
+                                  </div>
+                              </p>
+                              <div class="d-flex justify-content-evenly">
+                                  <a href="#twitter"><i class="fab">&#xf099</i></a>
+                                  <a href="#youtube"><i class="fab text-danger">&#xf167</i></a>
+                                  <a href="#instagram"><i class="fab text-warning">&#xf16d</i></a>
+                                  <a href="#website"><i class="fas text-info">&#xf0ac</i></a>
+                              </div>
 
-                            <center>
-                                <p>
-                                    <a href="/editaccountdetails">
-                                        <span class="material-icons-outlined">
-                                            tune
-                                        </span>
-                                    </a>
-                                </p>
-                            </center>
-                        </div>
-                    </div>
+                              <p>
+                                  <div class="row">
+                                      <div class="col-2">
+                                          <span class="material-icons-outlined text-success">
+                                              bookmark_border
+                                          </span>
+                                      </div>
+      
+                                      <div class="col-10 bg-light">
+                                          
+                                      </div>
+                                  </div>
+                              </p>
+                          </div>
+                      </div>
                 </div>
 
             </div>

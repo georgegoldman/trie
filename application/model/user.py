@@ -1,7 +1,10 @@
 from application import db, bcrypt
 from sqlalchemy.dialects.postgresql import UUID
 from flask_login import UserMixin
+from sqlalchemy.types import Enum
+import  enum
 import uuid
+
 
 class User(db.Model, UserMixin):
     __tableusername__='user'
@@ -11,6 +14,11 @@ class User(db.Model, UserMixin):
     email = db.Column(db.Text, unique=True, nullable=True)
     profile_px = db.Column(db.Text, nullable=True)
     password = db.Column(db.Text, nullable=False)
+    accountType = db.Column(db.String(80), default='personal')
+    instagram = db.Column(db.Text, nullable=True)
+    youtube  = db.Column(db.Text, nullable=True)
+    twitter = db.Column(db.Text, nullable=True)
+    website = db.Column(db.Text, nullable=True)
     menus = db.relationship('Triet', backref=db.backref('user', lazy=True))
 
     def __init__(self, username, phone, password):

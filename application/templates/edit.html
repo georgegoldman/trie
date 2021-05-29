@@ -16,7 +16,7 @@
                             
                               
                               <center>
-                                <img id="output" src={{current_user.profile_px}} width="200" />
+                                <img id="output" src={{current_user.profile_px}} class="rounded-circle"  width="150" height="150" />
                                 <p class="p-2 "><label for="file" style="cursor: pointer;" class="mdc-button mdc-button--outlined">
                                       <span class="material-icons-sharp">
                                       image
@@ -114,7 +114,7 @@
                                     <input type="text"
                                      id="instagram" 
                                      name="instagram"
-                                     value="{{current_user.username}}"
+                                     value="{{current_user.instagram}}"
                                      placeholder="Change instagram username" 
                                      class="mdc-text-field__input col-12" 
                                      aria-labelledby="my-label-id"
@@ -140,7 +140,7 @@
                                     class="mdc-text-field__input col-12"
                                     name="youtube"
                                     placeholder="Enter your youtube link"
-                                    value="https://www.youtube.com/channel/ajdhjad"
+                                    value={{current_user.youtube}}
                                     aria-labelledby="my-label-id">
                                 </label>
                                 <div class="mdc-text-field-helper-line">
@@ -163,7 +163,7 @@
                                     <input type="text"
                                      class="mdc-text-field__input"
                                      name="twitter"
-                                     value="{{current_user.username}}"
+                                     value={{current_user.twitter}}
                                      placeholder="Change twitter username"
                                      aria-labelledby="my-label-id">
                                   </label>
@@ -188,7 +188,7 @@
                                     <input type="text"
                                      class="mdc-text-field__input"
                                      name="website"
-                                     value="https://www.youtube.com/channel/ajdhjad"
+                                     value={{current_user.website}}
                                      placeholder="Change your website link"
                                      aria-labelledby="my-label-id">
                                   </label>

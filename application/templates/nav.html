@@ -12,13 +12,12 @@
         <button class="material-icons-sharp mobile_tab mdc-top-app-bar__action-item mdc-icon-button" onclick="window.history.back();" aria-label="Search" style="background-color: black !important" >arrow_back_ios_new</button>
       </section>
       {% if current_user.is_authenticated %}
-          <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end" role="toolbar">
+      <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end" role="toolbar">
+            <a href="/make_treat" class="desktopMenu material-icons mdc-top-app-bar__action-item mdc-icon-button" aria-label="Search">add</a>
             <a href="#notification" class="material-icons-sharp desktopMenu mdc-top-app-bar__action-item mdc-icon-button" aria-label="Search">notifications</a>
             <a href="/wallet" class="material-icons-sharp desktopMenu mdc-top-app-bar__action-item mdc-icon-button" aria-label="Search">account_balance_wallet</a>
-            <a href="/search" class="material-icons-sharp mdc-top-app-bar__action-item mdc-icon-button" aria-label="Search">search</a>
-            <a href="/user_profile" class="material-icons-sharp mdc-top-app-bar__action-item mdc-icon-button" aria-label="Search">person</a>
-            <a href="/make_treat" class="desktopMenu material-icons mdc-top-app-bar__action-item mdc-icon-button" aria-label="Search">add</a>
-            <a href="/logout" class="material-icons mdc-top-app-bar__action-item mdc-icon-button" aria-label="Options">logout</a>
+            <a href="/search" class="material-icons-sharp desktopMenu mdc-top-app-bar__action-item mdc-icon-button" aria-label="Search">search</a>
+            <a href="/user_profile" class="material-icons-sharp mdc-top-app-bar__action-item mdc-icon-button" aria-label="Search"><img id="output" src={{current_user.profile_px}} class="rounded-circle"  width="10" height="10" /></a>
           </section>
         {% else %}
         <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end" role="toolbar">

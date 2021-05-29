@@ -149,7 +149,7 @@ def create_triet():
     editImage = Image.open(in_mem_file)
     # w, h = editImage.size
     # w2, h2 = math.floor(w-((25/100)*w)), math.floor(h-((25/100)*h))
-    editImage.thumbnail((400, 400))
+    editImage.thumbnail((100, 100))
     in_mem_file = io.BytesIO()
     editImage.save(in_mem_file, format="jpeg", optimize=True)
     in_mem_file.seek(0)
@@ -217,17 +217,51 @@ def editaccountdetails():
     twitter = request.form.get('twitter')
     website = request.form.get('website')
 
-    return {
-        'data': {
-            'phone': phone,
-            'username': username,
-            'accounttype': accounttype,
-            'instagram': instagram,
-            'youtube': youtube,
-            'twitter': twitter,
-            'website': website,
-        }
-    }
+    filename = secrets.token_hex(16)+'.jpg'
+    in_mem_file = io.BytesIO(upload_profile_px.read())
+    editImage = Image.open(in_mem_file)
+
+    editImage.crop((10, 30, 20, 30))
+    in_mem_file = io.BytesIO()
+    editImage.save(in_mem_file, format="jpeg", optimize=True)
+    in_mem_file.seek(0)
+
+    upload_img = cloudinary.uploader.upload(
+        in_mem_file,
+        folder = "trie/profile/",
+        public_id=filename,
+        overwrite = True,
+        resource_type = "image"
+    )
+
+    img = upload_img['url']
+
+    getUser = User.query.get(current_user.id)
+    getUser.username = username
+    getUser.phone = phone
+    getUser.profile_px = img
+    getUser.accountType = accounttype
+    getUser.instagram = instagram
+    getUser.youtube = youtube
+    getUser.twitter = twitter
+    getUser.website = website
+    db.session.add(getUser)
+    db.session.commit()
+
+    flash('Your account details has been updated 😌')
+    return redirect('/editaccountdetails')
+
+    # return {
+    #     'data': {
+    #         'phone': phone,
+    #         'username': username,
+    #         'accounttype': accounttype,
+    #         'instagram': instagram,
+    #         'youtube': youtube,
+    #         'twitter': twitter,
+    #         'website': website,
+    #     }
+    # }
 
 
 @usr.route('/editaccountdetails', methods=['GET'])
