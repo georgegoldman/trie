@@ -9,6 +9,10 @@
     }
  } */
 
+ a.rounded-circle:focus {
+    background-color: rgba(245, 245, 245, 0.274) !important;
+ }
+
  .mobile_tab{
     background-color: #6200ee;
  }
