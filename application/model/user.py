@@ -17,7 +17,7 @@ class User(db.Model, UserMixin):
     accountType = db.Column(db.String(80), default='personal')
     instagram = db.Column(db.Text, nullable=True)
     youtube  = db.Column(db.Text, nullable=True)
-    twitter = db.Column(db.Text, nullable=True)
+    twitter = db.Column(db.Text, nullable=True) 
     website = db.Column(db.Text, nullable=True)
     menus = db.relationship('Triet', backref=db.backref('user', lazy=True))
 

@@ -12,77 +12,33 @@ from PIL import Image
 usr = Blueprint('user',__name__)
 
 
-
-# heading = "Lorem ipsum dolor sit amet."
-
-# content = """
-# Lorem ipsum dolor sit amet consectetur, adipisicing elit. 
-# Repellat inventore assumenda laboriosam, 
-# obcaecati saepe pariatur atque est? Quam, molestias nisi.
-# """
-
-# dbr = list()  # The mock database
-
-# posts = 500  # num posts to generate
-
-# quantity = 20  # num posts to return per request
-
-# for x in range(posts):
-
-#     """
-#     Creates messages/posts by shuffling the heading & content 
-#     to create random strings & appends to the db
-#     """
-
-#     heading_parts = heading.split(" ")
-#     random.shuffle(heading_parts)
-
-#     content_parts = content.split(" ")
-#     random.shuffle(content_parts)
-
-#     dbr.append([x, " ".join(heading_parts), " ".join(content_parts)])
-
-
-# @usr.route("/")
-# def index():
-#     """ Route to render the HTML """
-#     return render_template("home.html")
-
-
-# @usr.route("/load")
-# def load():
-#     """ Route to return the posts """
-
-#     time.sleep(0.2)  # Used to simulate delay
-
-#     if request.args:
-#         counter = int(request.args.get("c"))  # The 'counter' value sent in the QS
-
-#         if counter == 0:
-#             print(f"Returning posts 0 to {quantity}")
-#             # Slice 0 -> quantity from the db
-#             res = make_response(jsonify(dbr[0: quantity]), 200)
-
-#         elif counter == posts:
-#             print("No more posts")
-#             res = make_response(jsonify({}), 200)
-
-#         else:
-#             print(f"Returning posts {counter} to {counter + quantity}")
-#             # Slice counter -> quantity from the db
-#             res = make_response(jsonify(dbr[counter: counter + quantity]), 200)
-
-#     return res
-
-
-
 @usr.route('/')
 @usr.route('/home')
 @login_required
 def home():
-    all_triet = Triet.query.all()
-    all_triet.reverse()
-    return render_template('home.html', all_triet=all_triet)
+    return render_template('home.html')
+
+@usr.route('/loadTriets')
+@login_required
+def load():
+    quantity = 10
+    all_triet = [i.serialize for i in Triet.query.all()]
+    if request.args:
+        counter = int(request.args.get("c"))
+
+        if counter == 0:
+            res = make_response(
+                {'msg': all_triet[0: quantity]}, 200
+            )
+        elif counter == len(all_triet):
+            res = make_response(
+                {}, 200
+            )
+        else:
+            res = make_response(
+                {'msg': all_triet[counter: counter + quantity]}, 200
+            )
+    return res
 
 @usr.route('/page/2')
 def page2():

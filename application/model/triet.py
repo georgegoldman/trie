@@ -26,10 +26,9 @@ class Triet(db.Model):
     @property
     def serialize(self):
         return {
-            'id' : self.id,
             'title' : self.title,
             'description' : self.description,
-            'pictute': self.picture,
+            'picture': self.picture,
             'price': self.price,
             
         }
