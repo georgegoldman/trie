@@ -3,6 +3,7 @@ import os, io, math, time, random, secrets, cloudinary.uploader, cloudinary.api,
 from flask.templating import render_template_string
 from flask import Blueprint, render_template, request, redirect, flash, jsonify, make_response
 from flask_login import login_required, login_user, logout_user, current_user
+from sqlalchemy import or_
 from application import db, bcrypt, allowed_file, app
 from application.model.user import User
 from application.model.triet import Triet
@@ -32,7 +33,9 @@ def load():
             )
         elif counter == len(all_triet):
             res = make_response(
-                {}, 200
+                {
+                    'msg': []
+                }, 200
             )
         else:
             res = make_response(
@@ -219,10 +222,34 @@ def editaccountdetails():
     #     }
     # }
 
+@usr.route('/search', methods=['GET', ])
+@login_required
+def search():
+    return render_template('search.html', triets=Triet.query.all())
+
+@usr.route('/loadsearch', methods=['GET', ])
+@login_required
+def loadsearch():
+    search_string = request.args.get("str")
+    search_triet = [i.serialize for i in Triet.query.filter(Triet.title.contains(search_string) | Triet.description.contains(search_string) | Triet.price.contains(search_string))]
+    search_users = [i.serialize for i in User.query.filter(User.username.contains(search_string) | User.phone.contains(search_string) | User.email.contains(search_string))]
+    print(search_triet)
+    res = make_response(
+        {
+            'msg': {
+                'users': search_users,
+                'triet': search_triet
+            }
+        }, 200
+    )
+
+    return res
+
 
 @usr.route('/editaccountdetails', methods=['GET'])
 @login_required
 def edit():
+    
     return render_template('edit.html', current_user=current_user)
 
 @usr.route('/logout', methods=['GET'])

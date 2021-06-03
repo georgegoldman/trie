@@ -1,5 +1,5 @@
 var scroller  = document.getElementById('scroller');
-var template = document.getElementById('post_template');
+var template = document.querySelector('#post_template');
 var sentinel = document.getElementById('sentinel');
 
 var counter = 0;
@@ -20,10 +20,9 @@ function loadTriets() {
         }
         response.json().then(function(data) {
             if (!data.msg.length){
-                sentinel.innerHTML = "nothing more 😜";
+                sentinel.innerHTML = "nothing more triets 😜";
                 return;
             }
-
             data.msg.forEach(item => {
                 let template_clone = template.content.cloneNode(true);
                 template_clone.querySelector('#trietMedia').src = item.picture

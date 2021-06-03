@@ -7,7 +7,11 @@
     #desktopMenu {
         display: none !important;
     }
- } */
+} */
+
+#searchUserV-aligner:hover{
+    background-color: whitesmoke !important;
+}
 
  a.rounded-circle:focus {
     background-color: rgba(245, 245, 245, 0.274) !important;
