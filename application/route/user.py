@@ -1,8 +1,9 @@
-import os, io, math, time, random, secrets, cloudinary.uploader, cloudinary.api, cloudinary
 
+import os, io, math, time, random, secrets, cloudinary.uploader, cloudinary.api, cloudinary
 from flask.templating import render_template_string
 from flask import Blueprint, render_template, request, redirect, flash, jsonify, make_response
 from flask_login import login_required, login_user, logout_user, current_user
+from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_required, set_access_cookies, get_csrf_token, unset_jwt_cookies
 from sqlalchemy import or_
 from application import db, bcrypt, allowed_file, app
 from application.model.user import User
@@ -15,12 +16,18 @@ usr = Blueprint('user',__name__)
 
 @usr.route('/')
 @usr.route('/home')
-@login_required
 def home():
     return render_template('home.html')
 
+@usr.route('/get_triets', methods=['GET', 'POST'])
+@jwt_required()
+def get_triets():
+    all_triet = [i.serialize for i in Triet.query.all()]
+    return {
+        'data': all_triet
+    }
+
 @usr.route('/loadTriets')
-@login_required
 def load():
     quantity = 10
     all_triet = [i.serialize for i in Triet.query.all()]
@@ -49,22 +56,14 @@ def page2():
     all_triet.reverse()
     return render_template('home2.html', all_triet=all_triet)
 
-@usr.route('/login', methods=['GET'])
-def login_get():
-    return render_template('login.html')
 
-@usr.route('/login', methods=['POST'])
-def login_post():
-    phone  = request.form.get('phone')
-    password = request.form.get('password')
-    user = User.query.filter_by(phone=phone).first()
-    if user and bcrypt.check_password_hash(user.password, password):
-        login_user(user)
-        return redirect('/')
-    
-    else:
-        flash('Please create an account you don\'t have and account in our network ')
-        return redirect('/login')
+@app.route("/login", methods=["POST"])
+def login_with_cookies():
+    email = request.json.get('email')
+    print(email)
+    # additional_claims = {"jwt_key": open('jwt-key.pub').read()}
+    access_token = create_access_token(identity=email)
+    return jsonify(access_token=access_token)
 
 @usr.route('/register', methods=['GET'])
 def register_get():
@@ -89,44 +88,45 @@ def register_post():
     return redirect('/login')
 
 @usr.route('/make_treat', methods=['GET'])
-@login_required
 def make_treate__get():
     
     return render_template('make_treat.html')
 
 @usr.route('/create_triet', methods=['POST'])
-@login_required
 def create_triet():
-    title = request.form.get('title')
-    image = request.files['image']
-    description = request.form.get('description')
-    price = request.form.get('price')
-    
+    # title = request.form.get('title')
+    # image = request.files['image']
+    # description = request.form.get('description')
+    # price = request.form.get('price')
+    print(request.get_json())
+    return {
+        'data': 'hi'
+    }
     # basewidth = 
-    filename = secrets.token_hex(16)+'.jpg'
-    in_mem_file = io.BytesIO(image.read())
-    editImage = Image.open(in_mem_file)
+    # filename = secrets.token_hex(16)+'.jpg'
+    # in_mem_file = io.BytesIO(image.read())
+    # editImage = Image.open(in_mem_file)
     # w, h = editImage.size
     # w2, h2 = math.floor(w-((25/100)*w)), math.floor(h-((25/100)*h))
-    editImage.thumbnail((100, 100))
-    in_mem_file = io.BytesIO()
-    editImage.save(in_mem_file, format="jpeg", optimize=True)
-    in_mem_file.seek(0)
-    
-    upload_img = cloudinary.uploader.upload(
-        in_mem_file,
-        folder = "trie/triets/",
-        public_id=filename,
-        overwrite = True,
-        resource_type = "image"
-    )
-    img = upload_img['url']
-    new_triet = Triet(title = title, description = description, picture = img, price = price)
-    db.session.add(new_triet)
-    db.session.commit()
-    
-    flash('Your triet has been added 😋')
-    return redirect('/home')
+    # editImage.thumbnail((100, 100))
+    # in_mem_file = io.BytesIO()
+    # editImage.save(in_mem_file, format="jpeg", optimize=True)
+    # in_mem_file.seek(0)
+    #
+    # upload_img = cloudinary.uploader.upload(
+    #     image,
+    #     folder = "trie/triets/",
+    #     public_id=filename,
+    #     overwrite = True,
+    #     resource_type = "image"
+    # )
+    # img = upload_img['url']
+    # new_triet = Triet(title = title, description = description, picture = img, price = price)
+    # db.session.add(new_triet)
+    # db.session.commit()
+    #
+    # flash('Your triet has been added 😋')
+    # return redirect('/home')
     # return {
     #     'h': h,
     #     'w': w
@@ -146,12 +146,10 @@ def authlandingpage():
     return render_template('authlandingpage.html')
 
 @usr.route('/user_profile')
-@login_required
 def user_profile():
     return render_template('user_profil.html', current_user=current_user)
     
 @usr.route('/updateuserprofilepix')
-@login_required
 def updateuserprofilepix():
     users = User.query.filter_by(profile_px=None).all()
     for user in users:
@@ -162,7 +160,6 @@ def updateuserprofilepix():
     return 'update successful 👊'
 
 @usr.route('/editaccountdetails', methods=['POST'])
-@login_required
 def editaccountdetails():
     #personal data 
     upload_profile_px = request.files['profile_px']
@@ -223,23 +220,18 @@ def editaccountdetails():
     # }
 
 @usr.route('/search', methods=['GET', ])
-@login_required
 def search():
     return render_template('search.html', triets=Triet.query.all())
 
-@usr.route('/loadsearch', methods=['GET', ])
-@login_required
+@usr.route('/loadsearch', methods=['GET',])
+@jwt_required()
 def loadsearch():
-    search_string = request.args.get("str")
-    search_triet = [i.serialize for i in Triet.query.filter(Triet.title.contains(search_string) | Triet.description.contains(search_string) | Triet.price.contains(search_string))]
-    search_users = [i.serialize for i in User.query.filter(User.username.contains(search_string) | User.phone.contains(search_string) | User.email.contains(search_string))]
-    print(search_triet)
+    triets = [i.serialize for i in Triet.query.all()]
+    users = [i.serialize for i in User.query.all()]
+    search_result = triets + users
     res = make_response(
         {
-            'msg': {
-                'users': search_users,
-                'triet': search_triet
-            }
+            'data': search_result
         }, 200
     )
 
@@ -247,7 +239,6 @@ def loadsearch():
 
 
 @usr.route('/editaccountdetails', methods=['GET'])
-@login_required
 def edit():
     
     return render_template('edit.html', current_user=current_user)
@@ -256,3 +247,35 @@ def edit():
 def logout():
     logout_user()
     return redirect('/authlandingpage')
+
+@usr.route('/getvue_post', methods=['POST'])
+def getvue_post():
+    if request.method == 'POST':
+
+        return {
+            'data': 'request sent'
+        }
+
+@usr.route('/loginwith_jwt', methods=['POST'])
+def loginwith_jwt():
+    email = request.json.get("email")
+    password = request.json.get("password")
+
+    print(request.json)
+
+    if email == None and password == None:
+        return {
+            "msg": "Bad username and password"
+        }
+    access_token = create_access_token(identity=email)
+    return {
+        "access_token": access_token
+    }
+
+@usr.route('/protected')
+@jwt_required()
+def protected():
+    current_user = get_jwt_identity()
+    return {
+        'logged_in_as': current_user
+    }

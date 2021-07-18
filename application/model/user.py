@@ -1,12 +1,11 @@
 from application import db, bcrypt
 from sqlalchemy.dialects.postgresql import UUID
-from flask_login import UserMixin
 from sqlalchemy.types import Enum
 import  enum
 import uuid
 
 
-class User(db.Model, UserMixin):
+class User(db.Model):
     __tableusername__='user'
     id = db.Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4, unique=True)
     username = db.Column(db.String(80), unique=True, nullable=False)
