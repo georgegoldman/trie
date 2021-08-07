@@ -9,7 +9,7 @@ jwt-key
 *.so
 
 #environment
-env/
+.env
 
 # migrations
 migrations
