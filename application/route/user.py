@@ -1,9 +1,9 @@
 
-import os, io, math, time, random, secrets, cloudinary.uploader, cloudinary.api, cloudinary
+import os, io, math, time, random, secrets, cloudinary.uploader, cloudinary.api, cloudinary, datetime
 from flask.templating import render_template_string
 from flask import Blueprint, render_template, request, redirect, flash, jsonify, make_response
 from flask_login import login_required, login_user, logout_user, current_user
-from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_required, set_access_cookies, get_csrf_token, unset_jwt_cookies
+from flask_jwt_extended import create_access_token, create_refresh_token, get_jwt_identity, jwt_required
 from sqlalchemy import or_
 from application import db, bcrypt, allowed_file, app
 from application.model.user import User
@@ -19,7 +19,7 @@ usr = Blueprint('user',__name__)
 def home():
     return render_template('home.html')
 
-@usr.route('/get_triets', methods=['GET', 'POST'])
+@usr.route('/get_triets', methods=['GET',])
 @jwt_required()
 def get_triets():
     all_triet = [i.serialize for i in Triet.query.all()]
@@ -58,34 +58,72 @@ def page2():
 
 
 @app.route("/login", methods=["POST"])
-def login_with_cookies():
+def login():
     email = request.json.get('email')
-    print(email)
+    password = request.json.get('password')
+    check_user = User.query.filter_by(email=email).first()
+    class UserNotExist(Exception):
+            def __init__(self, message="This user does not exist"):
+                self.message = message
+                super().__init__(self.message)
+    print(check_user.password)
+    if check_user:
+        user_password = check_user.password
+        pwd_hash = bcrypt.check_password_hash(user_password, password)
+        
+        if pwd_hash:
+            access_token = create_access_token(identity=check_user.id, fresh=datetime.timedelta(minutes=15))
+            refresh_token = create_refresh_token(identity=check_user.id)
+            return {
+                "access_token": access_token,
+                "refresh_token": refresh_token
+            }
     # additional_claims = {"jwt_key": open('jwt-key.pub').read()}
-    access_token = create_access_token(identity=email)
-    return jsonify(access_token=access_token)
+    else:
+        raise UserNotExist()
 
-@usr.route('/register', methods=['GET'])
-def register_get():
-    return render_template('register.html')
+@usr.route('/refresh', methods=["GET"])
+@jwt_required(refresh=True)
+def refresh():
+    identity = get_jwt_identity()
+    access_token = create_access_token(identity=identity, fresh=False)
+    return {
+        "access_token": access_token
+    }
 
 @usr.route('/register', methods=['POST'])
 def register_post():
-    username = request.form.get('username')
-    phone = request.form.get('phone')
-    password = request.form.get('password')
+    username = request.json.get('username')
+    email = request.json.get('email')
+    password = request.json.get('password')
     
-    user = User.query.filter_by(phone=phone).first()
-    
+    user = User.query.filter_by(email=email).first()
+
     if user:
-        flash('This phone number is having an account in our network 👀')
-        return redirect('/register')
-    new_user = User(username=username, phone=phone, password=password)
+        return {
+            'msg': 'Account already exists in our network 👀'
+        }
+    new_user = User(username=username, email=email, password=password)
     db.session.add(new_user)
     db.session.commit()
-    
-    flash('Your account has been succefully created 👊! ')    
-    return redirect('/login')
+        
+    return {
+        'msg': 'Your account has been succefully created 👊! '
+    }
+
+@usr.route('/check_username', methods=['POST'])
+def make_treat():
+    username  = request.json.get('username')
+    checkUser = User.query.filter_by(username=username).first()
+
+    if checkUser:
+        return {
+            'msg': True
+        }
+    else:
+        return {
+            'msg': False
+        }
 
 @usr.route('/make_treat', methods=['GET'])
 def make_treate__get():
@@ -93,37 +131,39 @@ def make_treate__get():
     return render_template('make_treat.html')
 
 @usr.route('/create_triet', methods=['POST'])
+@jwt_required()
 def create_triet():
-    # title = request.form.get('title')
-    # image = request.files['image']
-    # description = request.form.get('description')
-    # price = request.form.get('price')
-    print(request.get_json())
+    image = request.files['image']
+    description = request.form.get('description')
+    title = request.form.get('title')
+    amount = request.form.get('amount')
+    print(image)
+
+    # change the filename and resize
+    filename = secrets.token_hex(16)+'.jpg'
+    in_mem_file = io.BytesIO(image.read())
+    editImage = Image.open(in_mem_file)
+    w, h = editImage.size
+    w2, h2 = math.floor(w-((25/100)*w)), math.floor(h-((25/100)*h))
+    editImage.thumbnail((w2, h2))
+    in_mem_file = io.BytesIO()
+    editImage.save(in_mem_file, format="jpeg",quality=90)
+    in_mem_file.seek(0)
+    #upload the edited image to a cloud storage
+    upload_img = cloudinary.uploader.upload(
+        in_mem_file,
+        folder = os.environ.get('CLOUDINARY_API_FOLDER'),
+        public_id=filename,
+        overwrite = True,
+        resource_type = "image"
+    )
+    img = upload_img['url']
+    new_triet = Triet(title = title, description = description, picture = img, price = amount)
+    db.session.add(new_triet)
+    db.session.commit()
     return {
-        'data': 'hi'
+        'msg': 'Your triet has been added 😋'
     }
-    # basewidth = 
-    # filename = secrets.token_hex(16)+'.jpg'
-    # in_mem_file = io.BytesIO(image.read())
-    # editImage = Image.open(in_mem_file)
-    # w, h = editImage.size
-    # w2, h2 = math.floor(w-((25/100)*w)), math.floor(h-((25/100)*h))
-    # editImage.thumbnail((100, 100))
-    # in_mem_file = io.BytesIO()
-    # editImage.save(in_mem_file, format="jpeg", optimize=True)
-    # in_mem_file.seek(0)
-    #
-    # upload_img = cloudinary.uploader.upload(
-    #     image,
-    #     folder = "trie/triets/",
-    #     public_id=filename,
-    #     overwrite = True,
-    #     resource_type = "image"
-    # )
-    # img = upload_img['url']
-    # new_triet = Triet(title = title, description = description, picture = img, price = price)
-    # db.session.add(new_triet)
-    # db.session.commit()
     #
     # flash('Your triet has been added 😋')
     # return redirect('/home')
@@ -217,6 +257,8 @@ def editaccountdetails():
     #         'twitter': twitter,
     #         'website': website,
     #     }
+    triets = [i.serialize for i in Triet.query.all()]
+    users = [i.serialize for i in User.query.all()]
     # }
 
 @usr.route('/search', methods=['GET', ])
@@ -226,8 +268,6 @@ def search():
 @usr.route('/loadsearch', methods=['GET',])
 @jwt_required()
 def loadsearch():
-    triets = [i.serialize for i in Triet.query.all()]
-    users = [i.serialize for i in User.query.all()]
     search_result = triets + users
     res = make_response(
         {

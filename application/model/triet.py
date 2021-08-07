@@ -1,6 +1,6 @@
 from application import db, bcrypt
 from sqlalchemy.dialects.postgresql import UUID
-from flask_login import current_user
+from flask_jwt_extended import current_user
 import uuid
 
 class Triet(db.Model):

@@ -1,4 +1,16 @@
 {
     "python.pythonPath": "/usr/bin/python3",
-    "codewindProfiling.showProfiling": false
+    "codewindProfiling.showProfiling": false,
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 5432,
+            "askForPassword": true,
+            "driver": "PostgreSQL",
+            "name": "postgres",
+            "database": "trie",
+            "username": "postgres"
+        }
+    ]
 }
