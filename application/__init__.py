@@ -11,6 +11,8 @@ from flask_jwt_extended import JWTManager
 
 
 app = Flask(__name__)
+app.config["JWT_TOKEN_LOCATION"] = ["headers", "cookies", "json", "query_string"]
+app.config["JWT_COOKIE_SECURE"] = False
 app.config.from_object(__name__)
 
 # app config 
