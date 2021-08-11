@@ -10,7 +10,6 @@ jwt-key
 
 #environment
 .env
-
 # migrations
 migrations
 
