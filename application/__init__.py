@@ -1,4 +1,3 @@
-from datetime import timedelta
 import os, cloudinary
 import http.client
 from dotenv import load_dotenv
@@ -14,14 +13,14 @@ from flask_jwt_extended import JWTManager
 app = Flask(__name__)
 app.config.from_object(__name__)
 
-app.config["JWT_SECRET_KEY"] = '8bd58efcb4f77f95fa30b0e72232ec5b'
-app.config["JWT_TOKEN_LOCATION"] = ["cookies"]
-app.config["JWT_TOKEN_LOCATION"] = ["headers", "cookies", "json", "query_string"]
-app.config["JWT_COOKIE_SECURE"] = False
-app.config["JWT_ALGORITHM"] = "HS512"
-app.config["JWT_DECODE_ALGORITHMS"] = "HS512"
-app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(seconds=5)
-app.config["JWT_REFRESH_TOKEN_EXPIRES"] = timedelta(days=30)
+# app config 
+if os.environ.get('FLASK_ENV') == "production":
+    app.config.from_object("config.ProductionConfig")
+else:
+    app.config.from_object("config.DevelopmentConfig")
+
+print(f'ENV is set to: {app.config["ENV"]}')
+# app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
 # app.config["JWT_PRIVATE_KEY"] = open('jwt-key').read()
 jwt = JWTManager(app)
 
@@ -43,16 +42,6 @@ cloudinary.config(
 
 bcrypt = Bcrypt(app)
 
-app.config['DEBUG'] = False
-if os.environ.get('FLASK_ENV') == "production":
-    app.config.from_object("config.ProductionConfig")
-else:
-    app.config.from_object("config.DevelopmentConfig")
-
-print(f'ENV is set to: {app.config["ENV"]}')
-# app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
-
-
 db = SQLAlchemy(app)
 Migrate = Migrate(app, db)
 # login_manager = LoginManager(app)
@@ -60,7 +49,6 @@ Migrate = Migrate(app, db)
 from .model.user import User
 from .model.triet import Triet
 
-app.config["JWT_SECRET_KEY"] = "fdngiu43895u32609#~@@{"
 
 
 @jwt.user_lookup_loader
