@@ -5,6 +5,9 @@ __pycache__/
 
 jwt-key
 
+.idea
+.vscode
+
 # C extensions
 *.so
 
