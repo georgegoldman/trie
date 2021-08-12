@@ -113,19 +113,7 @@ def register_post():
         'msg': 'Your account has been succefully created 👊! '
     }
 
-@usr.route('/check_username', methods=['POST'])
-def make_treat():
-    username  = request.json.get('username')
-    checkUser = User.query.filter_by(username=username).first()
 
-    if checkUser:
-        return {
-            'msg': True
-        }
-    else:
-        return {
-            'msg': False
-        }
 
 @usr.route('/make_treat', methods=['GET'])
 def make_treate__get():

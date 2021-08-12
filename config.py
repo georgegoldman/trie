@@ -13,7 +13,6 @@ class Config(object):
     # database uri
     DEBUG= os.environ.get('DEBUG')
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URI')
-    SQLALCHEMY_ECHO = os.environ.get('SQLALCHEMY_ECHO')
 
     # jwt confg
 
