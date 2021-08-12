@@ -21,6 +21,7 @@ def home():
     return render_template('home.html')
 
 @usr.route('/get_triets', methods=['GET',])
+@cross_origin()
 @jwt_required()
 def get_triets():
     all_triet = [i.serialize for i in Triet.query.all()]
