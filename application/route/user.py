@@ -4,6 +4,7 @@ from flask.templating import render_template_string
 from flask import Blueprint, render_template, request, redirect, flash, jsonify, make_response
 from flask_login import login_required, login_user, logout_user, current_user
 from flask_jwt_extended import create_access_token, create_refresh_token, get_jwt_identity, jwt_required
+from flask_cors import cross_origin
 from sqlalchemy import or_
 from application import db, bcrypt, allowed_file, app
 from application.model.user import User
@@ -28,6 +29,7 @@ def get_triets():
     }
 
 @usr.route('/loadTriets')
+@cross_origin()
 def load():
     quantity = 10
     all_triet = [i.serialize for i in Triet.query.all()]

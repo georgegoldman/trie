@@ -26,7 +26,7 @@ print(f'ENV is set to: {app.config["ENV"]}')
 # app.config["JWT_PRIVATE_KEY"] = open('jwt-key').read()
 jwt = JWTManager(app)
 
-CORS(app, resources={r'/*': {"origins": "*"}})
+CORS(app)
 
 # UPLOAD_FOLDER = '/home/yashuayaweh/Documents/PROGRAMMING/lifeat/application/static/imgs/menu'
 ALLOWED_EXTENSIONS = {'png',     'jpg', 'jpeg'}
