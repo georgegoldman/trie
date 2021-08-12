@@ -15,12 +15,7 @@ from PIL import Image
 usr = Blueprint('user',__name__)
 
 
-@usr.route('/')
-@usr.route('/home')
-def home():
-    return render_template('home.html')
-
-@usr.route('/get_triets', methods=['GET',])
+@usr.route('/get_triets', methods=['GET'])
 @cross_origin()
 @jwt_required()
 def get_triets():
@@ -28,36 +23,6 @@ def get_triets():
     return {
         'data': all_triet
     }
-
-@usr.route('/loadTriets')
-@cross_origin()
-def load():
-    quantity = 10
-    all_triet = [i.serialize for i in Triet.query.all()]
-    if request.args:
-        counter = int(request.args.get("c"))
-
-        if counter == 0:
-            res = make_response(
-                {'msg': all_triet[0: quantity]}, 200
-            )
-        elif counter == len(all_triet):
-            res = make_response(
-                {
-                    'msg': []
-                }, 200
-            )
-        else:
-            res = make_response(
-                {'msg': all_triet[counter: counter + quantity]}, 200
-            )
-    return res
-
-@usr.route('/page/2')
-def page2():
-    all_triet = Triet.query.all()
-    all_triet.reverse()
-    return render_template('home2.html', all_triet=all_triet)
 
 
 @app.route("/login", methods=["POST"])
@@ -115,13 +80,6 @@ def register_post():
         'msg': 'Your account has been succefully created 👊! '
     }
 
-
-
-@usr.route('/make_treat', methods=['GET'])
-def make_treate__get():
-    
-    return render_template('make_treat.html')
-
 @usr.route('/create_triet', methods=['POST'])
 @jwt_required()
 def create_triet():
@@ -156,30 +114,7 @@ def create_triet():
     return {
         'msg': 'Your triet has been added 😋'
     }
-    #
-    # flash('Your triet has been added 😋')
-    # return redirect('/home')
-    # return {
-    #     'h': h,
-    #     'w': w
-    # }
 
-@usr.route('/triet/<id>', methods=['GET'])
-def triet_id(id):
-    getTreat = Triet.query.get(id)
-    return render_template('trietview.html', triet=getTreat)
-
-@usr.route('/wallet', methods=['GET'])
-def wallet():
-    return render_template('wallet.html')
-
-@usr.route('/authlandingpage')
-def authlandingpage():
-    return render_template('authlandingpage.html')
-
-@usr.route('/user_profile')
-def user_profile():
-    return render_template('user_profil.html', current_user=current_user)
     
 @usr.route('/updateuserprofilepix')
 def updateuserprofilepix():
@@ -269,17 +204,6 @@ def loadsearch():
 
     return res
 
-
-@usr.route('/editaccountdetails', methods=['GET'])
-def edit():
-    
-    return render_template('edit.html', current_user=current_user)
-
-@usr.route('/logout', methods=['GET'])
-def logout():
-    logout_user()
-    return redirect('/authlandingpage')
-
 @usr.route('/getvue_post', methods=['POST'])
 def getvue_post():
     if request.method == 'POST':
@@ -302,12 +226,4 @@ def loginwith_jwt():
     access_token = create_access_token(identity=email)
     return {
         "access_token": access_token
-    }
-
-@usr.route('/protected')
-@jwt_required()
-def protected():
-    current_user = get_jwt_identity()
-    return {
-        'logged_in_as': current_user
     }
