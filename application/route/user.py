@@ -60,6 +60,7 @@ def page2():
 
 
 @app.route("/login", methods=["POST"])
+@cross_origin()
 def login():
     email = request.json.get('email')
     password = request.json.get('password')
