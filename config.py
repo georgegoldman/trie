@@ -18,8 +18,6 @@ class Config(object):
 
     JWT_SECRET_KEY = os.environ.get('JWT_SECRET_KEY')
     JWT_COOKIE_SECURE = os.environ.get('JWT_COOKIE_SECURE')
-    JWT_ALGORITHM = os.environ.get('JWT_ALGORITHM')
-    JWT_DECODE_ALGORITHMS = os.environ.get('JWT_DECODE_ALGORITHMS')
     
 
 class ProductionConfig(Config):
